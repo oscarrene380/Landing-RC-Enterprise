@@ -1,0 +1,76 @@
+---
+/**
+ * Logotipo vectorial. Reconstruye la marca de la tarjeta original
+ * (casa + brocha + coral) en algo nítido a cualquier tamaño.
+ */
+interface Props {
+  /** Alto del isotipo en px */
+  size?: number;
+  /** Oculta el texto y deja solo el símbolo */
+  markOnly?: boolean;
+  class?: string;
+}
+
+const { size = 38, markOnly = false, class: className } = Astro.props;
+---
+
+<span class:list={['wordmark', className]} style={`--mark-size:${size}px`}>
+  <svg
+    class="wordmark__mark"
+    viewBox="0 0 48 48"
+    role="img"
+    aria-label="Residential Construction Enterprise"
+  >
+    <rect width="48" height="48" rx="11" fill="var(--coral-500)"></rect>
+    <path d="M10 27.5 24 15l14 12.5" fill="none" stroke="#fff7f5" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M14.5 26.5V35h19v-8.5" fill="none" stroke="#fff7f5" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <rect x="21" y="28.5" width="6" height="6.5" rx="1" fill="var(--teal-300)"></rect>
+  </svg>
+
+  {
+    !markOnly && (
+      <span class="wordmark__text">
+        <span class="wordmark__name">RC Enterprise</span>
+        <span class="wordmark__sub">Painting &amp; staining</span>
+      </span>
+    )
+  }
+</span>
+
+<style>
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .wordmark__mark {
+    width: var(--mark-size);
+    height: var(--mark-size);
+    flex: none;
+  }
+
+  .wordmark__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.12em;
+  }
+
+  .wordmark__name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.06rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .wordmark__sub {
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--teal-300);
+  }
+</style>

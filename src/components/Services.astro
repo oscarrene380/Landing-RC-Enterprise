@@ -1,0 +1,128 @@
+---
+import Icon from './Icon.astro';
+import T from './T.astro';
+import { services } from '../data/services';
+---
+
+<section id="services" class="section section--light services">
+  <div class="container">
+    <header class="services__head reveal">
+      <p class="eyebrow">
+        <T en="Five services, one standard" es="Cinco servicios, un solo estándar" />
+      </p>
+      <h2 class="services__title">
+        <T en="What we do" es="Lo que hacemos" />
+      </h2>
+      <p class="lede">
+        <T
+          en="Residential work only — houses, decks and fences. That focus is why the prep is right and the finish lasts."
+          es="Solo trabajo residencial: casas, terrazas y cercas. Ese enfoque es la razón de que la preparación esté bien hecha y el acabado dure."
+        />
+      </p>
+    </header>
+
+    <ol class="services__grid">
+      {
+        services.map((s, i) => (
+          <li class="service reveal" style={`transition-delay:${i * 70}ms`}>
+            <div class="service__top">
+              <Icon name={s.icon as any} size={26} class="service__icon" />
+              <span class="service__n">{s.n}</span>
+            </div>
+            <h3 class="service__name">
+              <T en={s.en.name} es={s.es.name} />
+            </h3>
+            <p class="service__desc">
+              <T en={s.en.desc} es={s.es.desc} />
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .services__head {
+    max-width: 62ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .services__title {
+    font-size: var(--step-5);
+    text-transform: uppercase;
+    margin: 0.6rem 0 0.9rem;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: clamp(0.9rem, 1.8vw, 1.35rem);
+    list-style: none;
+    padding: 0;
+    counter-reset: none;
+  }
+
+  .service {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper-50);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: clamp(1.3rem, 2.4vw, 1.75rem);
+    transition:
+      border-color var(--dur) var(--ease-out),
+      translate var(--dur) var(--ease-out);
+  }
+
+  .service:hover {
+    border-color: var(--coral-500);
+    translate: 0 -3px;
+  }
+
+  .service__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.1rem;
+  }
+
+  .service__icon {
+    color: var(--coral-500);
+  }
+
+  .service__n {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--text-on-light-muted);
+  }
+
+  .service__name {
+    font-size: var(--step-1);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .service__desc {
+    font-size: var(--step--1);
+    line-height: 1.65;
+    color: var(--text-on-light-muted);
+  }
+
+  /* El primer servicio ocupa dos columnas en pantallas anchas */
+  @media (min-width: 1000px) {
+    .services__grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .service {
+      grid-column: span 2;
+    }
+
+    .service:nth-child(1),
+    .service:nth-child(2) {
+      grid-column: span 3;
+    }
+  }
+</style>

@@ -1,0 +1,229 @@
+---
+import Wordmark from './Wordmark.astro';
+import LangSwitch from './LangSwitch.astro';
+import Icon from './Icon.astro';
+import T from './T.astro';
+import { contact } from '../data/site';
+
+const links = [
+  { href: '#services', en: 'Services', es: 'Servicios' },
+  { href: '#work', en: 'Work', es: 'Trabajos' },
+  { href: '#reviews', en: 'Reviews', es: 'Reseñas' },
+  { href: '#area', en: 'Service area', es: 'Zona' },
+  { href: '#contact', en: 'Contact', es: 'Contacto' },
+];
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="#top" class="header__logo" aria-label="RC Enterprise — home">
+      <Wordmark size={36} />
+    </a>
+
+    <nav class="header__nav" id="nav" aria-label="Main">
+      {
+        links.map((l) => (
+          <a href={l.href} class="header__link">
+            <T en={l.en} es={l.es} />
+          </a>
+        ))
+      }
+      <div class="header__nav-actions">
+        <LangSwitch />
+        <a href={`tel:${contact.phoneRaw}`} class="btn btn--primary btn--block">
+          <Icon name="phone" size={18} />
+          {contact.phone}
+        </a>
+      </div>
+    </nav>
+
+    <div class="header__actions">
+      <div class="header__lang">
+        <LangSwitch />
+      </div>
+      <a href={`tel:${contact.phoneRaw}`} class="btn btn--primary header__call">
+        <Icon name="phone" size={18} />
+        <span class="header__call-text">{contact.phone}</span>
+      </a>
+      <button
+        type="button"
+        class="header__toggle"
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="nav"
+      >
+        <span class="sr-only">
+          <T en="Open menu" es="Abrir menú" />
+        </span>
+        <Icon name="menu" size={24} class="header__toggle-open" />
+        <Icon name="close" size={24} class="header__toggle-close" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--ink-800) 88%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  .header__inner {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .header__logo {
+    flex: none;
+  }
+
+  .header__link {
+    font-family: var(--font-display);
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-on-dark-muted);
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .header__link:hover {
+    color: var(--text-on-dark);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .header__call {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .header__toggle {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: 1px solid var(--border-dark-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text-on-dark);
+  }
+
+  .header__toggle-close {
+    display: none;
+  }
+
+  .header__toggle[aria-expanded='true'] .header__toggle-open {
+    display: none;
+  }
+
+  .header__toggle[aria-expanded='true'] .header__toggle-close {
+    display: block;
+  }
+
+  /* ---------- Móvil: menú desplegable ---------- */
+
+  @media (max-width: 899px) {
+    .header__lang,
+    .header__call-text {
+      display: none;
+    }
+
+    .header__call {
+      padding: 0.7rem 0.8rem;
+    }
+
+    .header__nav {
+      position: absolute;
+      inset: 100% 0 auto;
+      display: grid;
+      gap: 0.25rem;
+      padding: 1rem var(--gutter) 1.5rem;
+      background: var(--ink-900);
+      border-bottom: 1px solid var(--border-dark);
+      transform-origin: top;
+      transition:
+        opacity var(--dur) var(--ease-out),
+        translate var(--dur) var(--ease-out),
+        visibility var(--dur);
+    }
+
+    .header__nav:not(.is-open) {
+      opacity: 0;
+      visibility: hidden;
+      translate: 0 -8px;
+    }
+
+    .header__link {
+      padding: 0.85rem 0;
+      font-size: 1.05rem;
+      border-bottom: 1px solid var(--border-dark);
+      color: var(--text-on-dark);
+    }
+
+    .header__nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .header__nav-actions .btn {
+      flex: 1;
+    }
+  }
+
+  /* ---------- Escritorio ---------- */
+
+  @media (min-width: 900px) {
+    .header__nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(1rem, 2.4vw, 2rem);
+    }
+
+    .header__nav-actions,
+    .header__toggle {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('nav');
+
+  if (toggle && nav) {
+    const close = () => {
+      nav.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+
+    nav.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+
+    // Al pasar a escritorio el menú vuelve a su estado normal
+    matchMedia('(min-width: 900px)').addEventListener('change', close);
+  }
+</script>

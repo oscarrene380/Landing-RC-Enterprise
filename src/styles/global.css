@@ -1,0 +1,335 @@
+/* ==========================================================================
+   RC Enterprise — design tokens & base styles
+   Paleta derivada del logo: navy tinta, coral del rótulo, teal de la tarjeta.
+   ========================================================================== */
+
+:root {
+  /* --- Color: superficies oscuras --- */
+  --ink-900: #0a1219;
+  --ink-800: #0e1a24;
+  --ink-700: #142430;
+  --ink-600: #1c313f;
+  --ink-500: #2a4454;
+
+  /* --- Color: superficies claras --- */
+  --paper-50: #fbfaf7;
+  --paper-100: #f5f1ea;
+  --paper-200: #e8e2d7;
+  --paper-300: #d5cdbe;
+
+  /* --- Acento primario: el coral del rótulo del logo --- */
+  --coral-400: #f2705f;
+  --coral-500: #e14434;
+  --coral-600: #c13322;
+  --coral-700: #8f2416;
+
+  /* --- Acento secundario: el celeste de la tarjeta --- */
+  --teal-300: #6fc9cd;
+  --teal-500: #0f7a80;
+  --teal-700: #0a565b;
+
+  /* --- Texto --- */
+  --text-on-dark: #eef1f3;
+  --text-on-dark-muted: #9fb0bc;
+  --text-on-light: #12212c;
+  --text-on-light-muted: #55646f;
+
+  /* --- Bordes --- */
+  --border-dark: rgb(255 255 255 / 0.12);
+  --border-dark-strong: rgb(255 255 255 / 0.24);
+  --border-light: rgb(18 33 44 / 0.12);
+
+  /* --- Tipografía --- */
+  --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Instrument Sans Variable', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', monospace;
+
+  /* Escala fluida (mobile-first, crece hasta 1180px de contenedor) */
+  --step--1: clamp(0.82rem, 0.79rem + 0.14vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.19vw, 1.11rem);
+  --step-1: clamp(1.19rem, 1.12rem + 0.34vw, 1.39rem);
+  --step-2: clamp(1.41rem, 1.29rem + 0.58vw, 1.74rem);
+  --step-3: clamp(1.68rem, 1.49rem + 0.94vw, 2.17rem);
+  --step-4: clamp(2rem, 1.7rem + 1.48vw, 2.72rem);
+  --step-5: clamp(2.37rem, 1.93rem + 2.24vw, 3.4rem);
+  --step-6: clamp(2.83rem, 2.17rem + 3.29vw, 4.24rem);
+
+  /* --- Espaciado & layout --- */
+  --container: 1180px;
+  --gutter: clamp(1.15rem, 4vw, 4rem);
+  --section-y: clamp(3.5rem, 8vw, 6.5rem);
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --header-h: 68px;
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 220ms;
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--ink-800);
+  color: var(--text-on-dark);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 3px solid var(--teal-300);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Layout helpers
+   -------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+  scroll-margin-top: calc(var(--header-h) + 8px);
+}
+
+.section--light {
+  background: var(--paper-100);
+  color: var(--text-on-light);
+}
+
+.section--dark {
+  background: var(--ink-900);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+}
+
+.section--light .eyebrow {
+  color: var(--teal-700);
+}
+
+.lede {
+  font-size: var(--step-1);
+  color: var(--text-on-dark-muted);
+  max-width: 56ch;
+}
+
+.section--light .lede {
+  color: var(--text-on-light-muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Salta al contenido — visible solo al tabular */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% -120%;
+  z-index: 200;
+  background: var(--coral-500);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+  font-weight: 600;
+  transition: translate var(--dur) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  translate: -50% 0;
+}
+
+/* --------------------------------------------------------------------------
+   Botones
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0.95rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-align: center;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    translate var(--dur) var(--ease-out);
+}
+
+.btn:active {
+  translate: 0 1px;
+}
+
+.btn--primary {
+  background: var(--coral-500);
+  color: #fff7f5;
+}
+
+.btn--primary:hover {
+  background: var(--coral-400);
+}
+
+.btn--ghost {
+  border-color: var(--border-dark-strong);
+  color: var(--text-on-dark);
+}
+
+.btn--ghost:hover {
+  background: rgb(255 255 255 / 0.07);
+}
+
+.section--light .btn--ghost {
+  border-color: var(--border-light);
+  color: var(--text-on-light);
+}
+
+.section--light .btn--ghost:hover {
+  background: rgb(18 33 44 / 0.05);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn .icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Cambio de idioma — sin JS el HTML ya trae ambos idiomas y CSS oculta uno.
+   Evita el parpadeo de contenido que provoca ocultar por JavaScript.
+   -------------------------------------------------------------------------- */
+
+[data-lang='en'] [data-t='es'],
+[data-lang='es'] [data-t='en'] {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Revelado al hacer scroll
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    translate: 0 18px;
+    transition:
+      opacity 620ms var(--ease-out),
+      translate 620ms var(--ease-out);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    translate: 0 0;
+  }
+}

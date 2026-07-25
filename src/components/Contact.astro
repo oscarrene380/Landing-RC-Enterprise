@@ -1,0 +1,385 @@
+---
+import Icon from './Icon.astro';
+import T from './T.astro';
+import { contact } from '../data/site';
+import { services } from '../data/services';
+---
+
+<section id="contact" class="section contact">
+  <div class="container contact__inner">
+    <div class="contact__copy reveal">
+      <p class="eyebrow">
+        <T en="Free estimate" es="Estimado gratis" />
+      </p>
+      <h2 class="contact__title">
+        <T en="Tell us about your project" es="Cuéntanos de tu proyecto" />
+      </h2>
+      <p class="lede">
+        <T
+          en="Fill this out and it opens WhatsApp with your details ready to send. Or just call — we answer."
+          es="Llena esto y se abre WhatsApp con tus datos listos para enviar. O simplemente llama: contestamos."
+        />
+      </p>
+
+      <ul class="contact__direct">
+        <li>
+          <a href={`tel:${contact.phoneRaw}`} class="direct">
+            <Icon name="phone" size={20} />
+            <span>
+              <span class="direct__label"><T en="Call" es="Llamar" /></span>
+              <span class="direct__value">{contact.phone}</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            href={`https://wa.me/${contact.whatsapp}`}
+            class="direct"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="whatsapp" size={20} />
+            <span>
+              <span class="direct__label">WhatsApp</span>
+              <span class="direct__value">{contact.phone}</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${contact.email}`} class="direct">
+            <Icon name="mail" size={20} />
+            <span>
+              <span class="direct__label"><T en="Email" es="Correo" /></span>
+              <span class="direct__value">{contact.email}</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <form class="form reveal" id="estimate-form" novalidate>
+      <div class="field">
+        <label for="f-name">
+          <T en="Full name" es="Nombre completo" />
+          <abbr title="required" aria-hidden="true">*</abbr>
+        </label>
+        <input
+          id="f-name"
+          name="name"
+          type="text"
+          required
+          autocomplete="name"
+          data-ph-en="Jane Doe"
+          data-ph-es="María Pérez"
+        />
+      </div>
+
+      <div class="field">
+        <label for="f-phone">
+          <T en="Phone" es="Teléfono" />
+          <abbr title="required" aria-hidden="true">*</abbr>
+        </label>
+        <input
+          id="f-phone"
+          name="phone"
+          type="tel"
+          required
+          autocomplete="tel"
+          inputmode="tel"
+          data-ph-en="(503) 555-0123"
+          data-ph-es="(503) 555-0123"
+        />
+      </div>
+
+      <div class="field">
+        <label for="f-service">
+          <T en="What do you need?" es="¿Qué necesitas?" />
+        </label>
+        <select id="f-service" name="service">
+          <option value="" data-en="Choose a service" data-es="Elige un servicio"
+            >Choose a service</option
+          >
+          {
+            services.map((s) => (
+              <option value={s.en.name} data-es={s.es.name} data-en={s.en.name}>
+                {s.en.name}
+              </option>
+            ))
+          }
+          <option value="Other" data-en="Something else" data-es="Otra cosa">Something else</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="f-notes">
+          <T en="Details (optional)" es="Detalles (opcional)" />
+        </label>
+        <textarea
+          id="f-notes"
+          name="notes"
+          rows="3"
+          data-ph-en="Two-story house, exterior, about 2,000 sq ft…"
+          data-ph-es="Casa de dos pisos, exterior, unos 2,000 pies²…"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--block">
+        <Icon name="whatsapp" size={20} />
+        <T en="Send on WhatsApp" es="Enviar por WhatsApp" />
+      </button>
+
+      <p class="form__note" id="form-status" role="status" aria-live="polite">
+        <T
+          en="We reply the same day, Monday to Saturday."
+          es="Respondemos el mismo día, de lunes a sábado."
+        />
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: linear-gradient(180deg, var(--ink-900), var(--ink-800));
+  }
+
+  .contact__inner {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .contact__title {
+    font-size: var(--step-5);
+    text-transform: uppercase;
+    margin: 0.6rem 0 0.9rem;
+  }
+
+  .contact__direct {
+    display: grid;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+  }
+
+  .direct {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    color: var(--text-on-dark);
+    transition:
+      border-color var(--dur) var(--ease-out),
+      background-color var(--dur) var(--ease-out);
+  }
+
+  .direct:hover {
+    border-color: var(--teal-300);
+    background: rgb(255 255 255 / 0.04);
+  }
+
+  .direct > :global(svg) {
+    color: var(--teal-300);
+  }
+
+  .direct__label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-on-dark-muted);
+  }
+
+  .direct__value {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+  }
+
+  /* --- Formulario --- */
+
+  .form {
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+    background: var(--ink-700);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.35rem, 3vw, 2rem);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .field label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-on-dark-muted);
+  }
+
+  .field abbr {
+    color: var(--coral-400);
+    text-decoration: none;
+    margin-left: 0.15em;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 0.85rem 0.95rem;
+    background: var(--ink-900);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-sm);
+    color: var(--text-on-dark);
+    font-size: var(--step-0);
+    transition: border-color var(--dur) var(--ease-out);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 5.5rem;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: rgb(255 255 255 / 0.38);
+  }
+
+  .field input:hover,
+  .field select:hover,
+  .field textarea:hover {
+    border-color: var(--border-dark-strong);
+  }
+
+  .field :is(input, select, textarea):focus-visible {
+    border-color: var(--teal-300);
+  }
+
+  .field :is(input, textarea)[aria-invalid='true'] {
+    border-color: var(--coral-400);
+  }
+
+  .form__note {
+    font-size: 0.82rem;
+    color: var(--text-on-dark-muted);
+    text-align: center;
+  }
+
+  .form__note[data-state='error'] {
+    color: var(--coral-400);
+  }
+
+  @media (min-width: 900px) {
+    .contact__inner {
+      grid-template-columns: 1fr 0.9fr;
+      align-items: start;
+    }
+
+    .contact__direct {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .contact__direct li:last-child {
+      grid-column: span 2;
+    }
+  }
+</style>
+
+<script>
+  import { contact } from '../data/site';
+
+  const form = document.getElementById('estimate-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+
+  const copy = {
+    en: {
+      missing: 'Please add your name and phone number.',
+      ok: 'Opening WhatsApp…',
+      idle: 'We reply the same day, Monday to Saturday.',
+      intro: 'Hi! I would like a free estimate.',
+      name: 'Name',
+      phone: 'Phone',
+      service: 'Service',
+      notes: 'Details',
+    },
+    es: {
+      missing: 'Agrega tu nombre y tu teléfono.',
+      ok: 'Abriendo WhatsApp…',
+      idle: 'Respondemos el mismo día, de lunes a sábado.',
+      intro: '¡Hola! Quisiera un estimado gratis.',
+      name: 'Nombre',
+      phone: 'Teléfono',
+      service: 'Servicio',
+      notes: 'Detalles',
+    },
+  };
+
+  function currentLang(): 'en' | 'es' {
+    return document.documentElement.dataset.lang === 'es' ? 'es' : 'en';
+  }
+
+  // Las <option> no admiten dos idiomas a la vez: se traducen aquí
+  function syncOptions() {
+    const lang = currentLang();
+    document.querySelectorAll<HTMLOptionElement>('option[data-en]').forEach((opt) => {
+      opt.textContent = opt.dataset[lang] ?? opt.textContent;
+    });
+  }
+  document.addEventListener('langchange', syncOptions);
+  syncOptions();
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const lang = currentLang();
+    const t = copy[lang];
+    const data = new FormData(form);
+
+    const name = String(data.get('name') ?? '').trim();
+    const phone = String(data.get('phone') ?? '').trim();
+
+    const nameInput = form.elements.namedItem('name') as HTMLInputElement;
+    const phoneInput = form.elements.namedItem('phone') as HTMLInputElement;
+    nameInput.setAttribute('aria-invalid', String(!name));
+    phoneInput.setAttribute('aria-invalid', String(!phone));
+
+    if (!name || !phone) {
+      if (status) {
+        status.textContent = t.missing;
+        status.dataset.state = 'error';
+      }
+      (name ? phoneInput : nameInput).focus();
+      return;
+    }
+
+    const service = String(data.get('service') ?? '').trim();
+    const notes = String(data.get('notes') ?? '').trim();
+
+    const lines = [
+      t.intro,
+      '',
+      `${t.name}: ${name}`,
+      `${t.phone}: ${phone}`,
+      service ? `${t.service}: ${service}` : '',
+      notes ? `${t.notes}: ${notes}` : '',
+    ].filter(Boolean);
+
+    if (status) {
+      status.textContent = t.ok;
+      delete status.dataset.state;
+    }
+
+    window.open(
+      `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`,
+      '_blank',
+      'noopener',
+    );
+  });
+</script>

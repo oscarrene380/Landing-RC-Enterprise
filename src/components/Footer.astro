@@ -1,0 +1,186 @@
+---
+import Icon from './Icon.astro';
+import T from './T.astro';
+import Wordmark from './Wordmark.astro';
+import { contact, site, social } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <Wordmark size={40} />
+      <p class="footer__blurb">
+        <T
+          en="Residential painting, staining and power washing across the Portland metro since 1998."
+          es="Pintura residencial, teñido y lavado a presión en el área de Portland desde 1998."
+        />
+      </p>
+      <img
+        src="/img/logo.jpg"
+        width="150"
+        height="83"
+        loading="lazy"
+        decoding="async"
+        alt="Original Residential Construction Enterprise business card"
+        data-alt-en="Original Residential Construction Enterprise business card"
+        data-alt-es="Tarjeta de presentación original de Residential Construction Enterprise"
+        class="footer__card"
+      />
+    </div>
+
+    <nav class="footer__col" aria-label="Footer">
+      <h2 class="footer__heading"><T en="Sections" es="Secciones" /></h2>
+      <ul>
+        <li><a href="#services"><T en="Services" es="Servicios" /></a></li>
+        <li><a href="#work"><T en="Work" es="Trabajos" /></a></li>
+        <li><a href="#reviews"><T en="Reviews" es="Reseñas" /></a></li>
+        <li><a href="#area"><T en="Service area" es="Zona de servicio" /></a></li>
+        <li><a href="#contact"><T en="Free estimate" es="Estimado gratis" /></a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__col">
+      <h2 class="footer__heading"><T en="Contact" es="Contacto" /></h2>
+      <ul>
+        <li><a href={`tel:${contact.phoneRaw}`}>{contact.phone}</a></li>
+        <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+        <li>
+          {contact.address.city}, {contact.address.region} {contact.address.postalCode}
+        </li>
+      </ul>
+
+      <div class="footer__social">
+        <a
+          href={social.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+          class="footer__social-btn"
+        >
+          <Icon name="facebook" size={20} />
+        </a>
+        <a
+          href={`https://wa.me/${contact.whatsapp}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp"
+          class="footer__social-btn"
+        >
+          <Icon name="whatsapp" size={20} />
+        </a>
+        <a
+          href={social.googleMaps}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Google Maps"
+          class="footer__social-btn"
+        >
+          <Icon name="pin" size={20} />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer__legal">
+    <p>© {year} {site.name}</p>
+    <p>{site.ccb} · <T en="Licensed & insured" es="Con licencia y asegurado" /></p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink-900);
+    border-top: 1px solid var(--border-dark);
+    padding-block: clamp(2.5rem, 5vw, 4rem) 1.5rem;
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .footer__blurb {
+    max-width: 40ch;
+    margin-top: 1rem;
+    font-size: var(--step--1);
+    color: var(--text-on-dark-muted);
+  }
+
+  .footer__card {
+    width: 150px;
+    height: auto;
+    margin-top: 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-dark);
+    opacity: 0.85;
+  }
+
+  .footer__heading {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-300);
+    margin-bottom: 0.9rem;
+  }
+
+  .footer__col ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+    font-size: var(--step--1);
+    color: var(--text-on-dark-muted);
+  }
+
+  .footer__col a:hover {
+    color: var(--text-on-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer__social {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .footer__social-btn {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-sm);
+    color: var(--text-on-dark);
+    transition:
+      border-color var(--dur) var(--ease-out),
+      background-color var(--dur) var(--ease-out);
+  }
+
+  .footer__social-btn:hover {
+    border-color: var(--teal-300);
+    background: rgb(255 255 255 / 0.05);
+  }
+
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-dark);
+    font-size: 0.78rem;
+    color: var(--text-on-dark-muted);
+  }
+
+  @media (min-width: 760px) {
+    .footer__inner {
+      grid-template-columns: 1.5fr 1fr 1fr;
+    }
+  }
+</style>

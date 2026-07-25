@@ -1,0 +1,120 @@
+---
+import Icon from './Icon.astro';
+import { contact, social } from '../data/site';
+
+const waText = encodeURIComponent('Hi! I would like a free estimate. / ¡Hola! Quisiera un estimado gratis.');
+---
+
+<div class="fab" data-fab>
+  <a
+    class="fab__btn fab__btn--fb"
+    href={social.facebook}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Facebook"
+    title="Facebook"
+  >
+    <Icon name="facebook" size={22} />
+  </a>
+
+  <a
+    class="fab__btn fab__btn--wa"
+    href={`https://wa.me/${contact.whatsapp}?text=${waText}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="WhatsApp"
+    title="WhatsApp"
+  >
+    <Icon name="whatsapp" size={24} />
+  </a>
+
+  <a
+    class="fab__btn fab__btn--call"
+    href={`tel:${contact.phoneRaw}`}
+    aria-label={`Call ${contact.phone}`}
+    title={contact.phone}
+  >
+    <Icon name="phone" size={22} />
+  </a>
+</div>
+
+<style>
+  .fab {
+    position: fixed;
+    right: clamp(0.85rem, 3vw, 1.5rem);
+    bottom: clamp(0.85rem, 3vw, 1.5rem);
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    /* Aparece cuando el usuario ya pasó el hero */
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 12px;
+    transition:
+      opacity 260ms var(--ease-out),
+      translate 260ms var(--ease-out),
+      visibility 260ms;
+  }
+
+  .fab.is-visible {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+  }
+
+  .fab__btn {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: #fff;
+    box-shadow: 0 6px 20px rgb(4 10 15 / 0.4);
+    transition:
+      scale var(--dur) var(--ease-out),
+      filter var(--dur) var(--ease-out);
+  }
+
+  .fab__btn:hover {
+    scale: 1.07;
+    filter: brightness(1.08);
+  }
+
+  .fab__btn--wa {
+    background: #25d366;
+    color: #04331a;
+    order: -1;
+  }
+
+  .fab__btn--fb {
+    background: #1877f2;
+    order: 1;
+  }
+
+  .fab__btn--call {
+    background: var(--coral-500);
+  }
+
+  /* En escritorio el teléfono ya está en el header */
+  @media (min-width: 900px) {
+    .fab__btn--call {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const fab = document.querySelector('[data-fab]');
+  const hero = document.getElementById('top');
+
+  if (fab && hero && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      ([entry]) => fab.classList.toggle('is-visible', !entry.isIntersecting),
+      { threshold: 0.15 },
+    );
+    io.observe(hero);
+  } else {
+    fab?.classList.add('is-visible');
+  }
+</script>

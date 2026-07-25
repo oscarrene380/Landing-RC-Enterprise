@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+import T from './T.astro';
+import { trustBadges } from '../data/services';
+---
+
+<div class="trust">
+  <ul class="container trust__list">
+    {
+      trustBadges.map((b) => (
+        <li class="trust__item">
+          <Icon name={b.icon as any} size={20} class="trust__icon" />
+          <T en={b.en} es={b.es} />
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .trust {
+    background: var(--ink-900);
+    border-block: 1px solid var(--border-dark);
+  }
+
+  .trust__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    list-style: none;
+    padding-block: 0;
+  }
+
+  .trust__item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1.1rem 0;
+    font-size: var(--step--1);
+    font-weight: 500;
+    color: var(--text-on-dark);
+  }
+
+  .trust__icon {
+    color: var(--coral-500);
+  }
+
+  @media (min-width: 640px) {
+    .trust__item + .trust__item {
+      padding-left: clamp(1rem, 2.5vw, 2rem);
+      border-left: 1px solid var(--border-dark);
+    }
+  }
+</style>

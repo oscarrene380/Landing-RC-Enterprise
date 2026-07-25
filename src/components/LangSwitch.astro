@@ -1,0 +1,45 @@
+---
+/** Selector de idioma. El estado real vive en [data-lang] del <html>. */
+---
+
+<div class="lang" role="group" aria-label="Language / Idioma">
+  <button type="button" class="lang__btn" data-lang-btn="en" lang="en">EN</button>
+  <button type="button" class="lang__btn" data-lang-btn="es" lang="es">ES</button>
+</div>
+
+<style>
+  .lang {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    background: rgb(255 255 255 / 0.08);
+    border-radius: var(--radius-pill);
+  }
+
+  .lang__btn {
+    border: 0;
+    background: transparent;
+    color: var(--text-on-dark);
+    opacity: 0.6;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    transition:
+      background-color var(--dur) var(--ease-out),
+      opacity var(--dur) var(--ease-out);
+  }
+
+  .lang__btn:hover {
+    opacity: 1;
+  }
+
+  :global([data-lang='en']) .lang__btn[data-lang-btn='en'],
+  :global([data-lang='es']) .lang__btn[data-lang-btn='es'] {
+    background: var(--paper-50);
+    color: var(--ink-900);
+    opacity: 1;
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Services from '../components/Services.astro';
+import Gallery from '../components/Gallery.astro';
+import Reviews from '../components/Reviews.astro';
+import ServiceArea from '../components/ServiceArea.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import FloatingActions from '../components/FloatingActions.astro';
+
+const title = 'RC Enterprise — House Painters in Portland & Beaverton, OR';
+const description =
+  'Interior and exterior house painting, staining and power washing across the Portland metro. 27 years of experience, 5.0 rating, free estimates. Licensed & insured. Se habla español.';
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main id="main">
+    <Hero />
+    <TrustBar />
+    <Services />
+    <Gallery />
+    <Reviews />
+    <ServiceArea />
+    <Contact />
+  </main>
+  <Footer />
+  <FloatingActions />
+</Layout>

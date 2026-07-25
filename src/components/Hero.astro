@@ -1,0 +1,196 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import T from './T.astro';
+import { contact, site } from '../data/site';
+import { heroImage, heroAlt } from '../data/gallery';
+import { ratingSummary } from '../data/reviews';
+---
+
+<section id="top" class="hero">
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="hero__eyebrow eyebrow">
+        <T en="Painting & staining · Portland metro, OR" es="Pintura y teñido · Área de Portland, OR" />
+      </p>
+
+      <h1 class="hero__title">
+        <T en="A flawless coat," es="Un acabado impecable," block />
+        <span class="hero__title-accent">
+          <T en="backed by 27 years." es="con 27 años de oficio." />
+        </span>
+      </h1>
+
+      <p class="hero__lede lede">
+        <T
+          en="Interior and exterior painting for homes across the Portland metro. Honest work, clean job sites, and free estimates — from a crew that has been doing this since 1998."
+          es="Pintura interior y exterior para hogares en el área de Portland. Trabajo honesto, obra limpia y estimados gratis — de un equipo que lleva en esto desde 1998."
+        />
+      </p>
+
+      <div class="hero__actions">
+        <a href={`tel:${contact.phoneRaw}`} class="btn btn--primary">
+          <Icon name="phone" size={19} />
+          <T en="Call for a free estimate" es="Llama por tu estimado gratis" />
+        </a>
+        <a href="#work" class="btn btn--ghost">
+          <T en="See our work" es="Ver trabajos" />
+          <Icon name="arrowRight" size={19} />
+        </a>
+      </div>
+
+      <p class="hero__rating">
+        <span class="hero__stars" aria-hidden="true">
+          {Array.from({ length: 5 }).map(() => <Icon name="star" size={17} />)}
+        </span>
+        <span>
+          <strong>{ratingSummary.value.toFixed(1)}</strong>
+          <T
+            en={` · ${ratingSummary.count} verified reviews · ${site.ccb}`}
+            es={` · ${ratingSummary.count} reseñas verificadas · ${site.ccb}`}
+          />
+        </span>
+      </p>
+    </div>
+
+    <figure class="hero__media">
+      <Image
+        src={heroImage}
+        alt={heroAlt.en}
+        data-alt-en={heroAlt.en}
+        data-alt-es={heroAlt.es}
+        widths={[520, 760, 1100]}
+        sizes="(min-width: 900px) 46vw, 92vw"
+        loading="eager"
+        fetchpriority="high"
+        class="hero__img"
+      />
+      <figcaption class="hero__badge">
+        <T en="Recent exterior — Portland" es="Exterior reciente — Portland" />
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(120% 90% at 15% 0%, var(--ink-700), transparent 60%),
+      var(--ink-800);
+    overflow: hidden;
+  }
+
+  /* Trama diagonal muy sutil, como cinta de enmascarar */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgb(255 255 255 / 0.022) 0 2px,
+      transparent 2px 14px
+    );
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2.25rem, 5vw, 4rem);
+    padding-block: clamp(2.75rem, 7vw, 5.5rem);
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 1.1rem;
+  }
+
+  .hero__title {
+    font-size: var(--step-6);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero__title-accent {
+    color: var(--coral-500);
+  }
+
+  .hero__lede {
+    margin-bottom: 2rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero__rating {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: var(--step--1);
+    color: var(--text-on-dark-muted);
+  }
+
+  .hero__rating strong {
+    color: var(--text-on-dark);
+  }
+
+  .hero__stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--coral-400);
+    fill: currentColor;
+  }
+
+  .hero__media {
+    position: relative;
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-dark);
+    background: var(--ink-700);
+  }
+
+  .hero__img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .hero__badge {
+    position: absolute;
+    left: 0.85rem;
+    bottom: 0.85rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--ink-900) 82%, transparent);
+    backdrop-filter: blur(6px);
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-on-dark);
+  }
+
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+    }
+
+    .hero__media {
+      /* Desborde controlado: rompe la retícula y da profundidad */
+      margin-right: calc(var(--gutter) * -0.5);
+    }
+
+    .hero__img {
+      aspect-ratio: 5 / 4;
+    }
+  }
+</style>

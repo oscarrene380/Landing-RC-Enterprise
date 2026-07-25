@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700&family=Archivo:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#e9e6df}
+  a{color:inherit;text-decoration:none}
+  a:hover{opacity:.85}
+  button{font-family:inherit}
+  input{font-family:inherit}
+</style>
+</helmet>
+<div style="min-height:100vh;padding:56px 48px 90px;font-family:'Work Sans',sans-serif;color:#26221d">
+
+  <section style="display:flex;flex-direction:column;gap:34px">
+    <div style="max-width:760px">
+      <div style="font:600 12px/1 'Work Sans';letter-spacing:.18em;text-transform:uppercase;color:#9a8d7c">Turn 1 · 3 directions</div>
+      <h1 style="font-family:'Libre Baskerville';font-weight:700;font-size:32px;line-height:1.15;margin:12px 0 10px">Landing page — Residential Construction Enterprise, LLC</h1>
+      <p style="font-size:15px;line-height:1.6;color:#5f574c;margin:0;max-width:640px">Tres direcciones visuales para la misma página (mobile-first, bilingüe EN/ES con selector real). Cada columna es la vista móvil completa — usa el selector de idioma en cualquier encabezado. Referencia una opción por su id en el chat: <a href="#1a" style="border-bottom:1px solid #c9beb0">1a</a>, <a href="#1b" style="border-bottom:1px solid #c9beb0">1b</a>, <a href="#1c" style="border-bottom:1px solid #c9beb0">1c</a>. Cuando elijas una, la dejo responsive completa para PC.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:52px;align-items:flex-start">
+
+      <!-- ============ OPTION 1a — CRAFTSMAN TRUST ============ -->
+      <div id="1a" style="position:relative;width:430px;flex:0 0 430px;border-radius:32px;overflow:hidden;box-shadow:0 34px 80px -34px rgba(38,34,29,.55);border:1px solid rgba(38,34,29,.1);background:#f5f0e8;font-family:'Work Sans',sans-serif;color:#26221d">
+        <div style="position:absolute;top:16px;left:16px;z-index:30;background:#26221d;color:#f5f0e8;font:600 11px/1 'Work Sans';padding:8px 12px;border-radius:999px;letter-spacing:.06em">1a · Craftsman Trust</div>
+
+        <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 18px;background:rgba(245,240,232,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(38,34,29,.1)">
+          <div style="display:flex;align-items:center;gap:9px">
+            <div style="width:26px;height:26px;border-radius:7px;background:oklch(0.6 0.12 42)"></div>
+            <div style="font-family:'Libre Baskerville';font-weight:700;font-size:15px">RC Enterprise</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="display:flex;background:rgba(38,34,29,.08);border-radius:999px;padding:3px">
+              <button onClick="{{ setEN }}" style="{{ enStyle }}">EN</button>
+              <button onClick="{{ setES }}" style="{{ esStyle }}">ES</button>
+            </div>
+            <a href="{{ telHref }}" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:oklch(0.6 0.12 42);color:#fff;font-size:15px">☎</a>
+          </div>
+        </header>
+
+        <div style="position:relative;padding:34px 22px 40px;background:linear-gradient(180deg,#efe7da,#f5f0e8)">
+          <div style="font:600 11px/1 'Work Sans';letter-spacing:.16em;text-transform:uppercase;color:oklch(0.55 0.11 42);margin-bottom:14px">{{ t.hero_eyebrow }}</div>
+          <h1 style="font-family:'Libre Baskerville';font-weight:700;font-size:32px;line-height:1.18;margin:0 0 14px">{{ t.hero_title }}</h1>
+          <p style="font-size:15px;line-height:1.6;color:#5f574c;margin:0 0 22px">{{ t.hero_sub }}</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="{{ telHref }}" style="display:flex;align-items:center;justify-content:center;gap:8px;background:oklch(0.6 0.12 42);color:#fff;font-weight:600;font-size:15px;padding:15px;border-radius:12px">☎ {{ t.cta_call }}</a>
+            <div style="display:flex;align-items:center;gap:9px;justify-content:center;color:#7a6f60;font-size:13px"><span style="color:oklch(0.62 0.13 60);letter-spacing:2px">★★★★★</span>{{ t.rating }}</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 26px">
+          <sc-for list="{{ trust }}" as="b" hint-placeholder-count="4">
+            <div style="flex:1 1 45%;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(38,34,29,.09);border-radius:11px;padding:11px 12px;font-size:12.5px;font-weight:600;line-height:1.25;color:#3a342c"><span style="width:7px;height:7px;border-radius:50%;background:oklch(0.6 0.12 42);flex:none"></span>{{ b }}</div>
+          </sc-for>
+        </div>
+
+        <div style="padding:30px 22px;background:#fff;border-top:1px solid rgba(38,34,29,.08)">
+          <h2 style="font-family:'Libre Baskerville';font-weight:700;font-size:23px;margin:0 0 4px">{{ t.services_title }}</h2>
+          <p style="font-size:13.5px;color:#7a6f60;margin:0 0 20px">{{ t.services_sub }}</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ services }}" as="s" hint-placeholder-count="5">
+              <div style="display:flex;gap:13px;align-items:flex-start;padding:14px;border:1px solid rgba(38,34,29,.1);border-radius:13px">
+                <div style="width:38px;height:38px;border-radius:9px;background:oklch(0.94 0.03 60);color:oklch(0.5 0.11 42);font-family:'Libre Baskerville';font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex:none">{{ s.n }}</div>
+                <div><div style="font-weight:700;font-size:15px;margin-bottom:3px">{{ s.name }}</div><div style="font-size:13px;line-height:1.5;color:#6f665a">{{ s.desc }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:30px 22px">
+          <h2 style="font-family:'Libre Baskerville';font-weight:700;font-size:23px;margin:0 0 4px">{{ t.work_title }}</h2>
+          <p style="font-size:13.5px;color:#7a6f60;margin:0 0 18px">{{ t.work_sub }}</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+            <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
+              <div style="position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:repeating-linear-gradient(45deg,#e7ddcd,#e7ddcd 11px,#efe8db 11px,#efe8db 22px);border:1px solid rgba(38,34,29,.1)">
+                <span style="position:absolute;top:9px;left:9px;font:600 9px/1 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#a2957f;background:rgba(255,255,255,.75);padding:4px 6px;border-radius:5px">{{ t.photo }}</span>
+                <span style="position:absolute;left:9px;right:9px;bottom:9px;font-weight:600;font-size:12px;line-height:1.25;color:#4a4238">{{ g.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:30px 22px;background:#26221d;color:#f5f0e8">
+          <h2 style="font-family:'Libre Baskerville';font-weight:700;font-size:23px;margin:0 0 3px">{{ t.reviews_title }}</h2>
+          <p style="font-size:13.5px;color:#c7bca9;margin:0 0 18px">{{ t.reviews_sub }}</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+              <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:16px">
+                <div style="color:oklch(0.72 0.13 68);letter-spacing:2px;font-size:13px;margin-bottom:8px">★★★★★</div>
+                <p style="font-size:13.5px;line-height:1.55;margin:0 0 12px;color:#ede6d9">{{ r.text }}</p>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:#a99e8c"><span style="font-weight:700;color:#f5f0e8">{{ r.name }}</span><span>{{ r.date }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font:500 11px/1.4 ui-monospace,monospace;color:#8d8272;margin-top:14px">{{ t.reviews_note }}</div>
+        </div>
+
+        <div style="padding:32px 22px;background:oklch(0.95 0.025 60)">
+          <h2 style="font-family:'Libre Baskerville';font-weight:700;font-size:23px;margin:0 0 4px">{{ t.contact_title }}</h2>
+          <p style="font-size:13.5px;color:#7a6f60;margin:0 0 18px">{{ t.contact_sub }}</p>
+          <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:11px">
+            <input name="name" required placeholder="{{ t.f_name }}" style="padding:14px;border:1px solid rgba(38,34,29,.2);border-radius:11px;font-size:14px;background:#fff">
+            <input name="phone" required type="tel" placeholder="{{ t.f_phone }}" style="padding:14px;border:1px solid rgba(38,34,29,.2);border-radius:11px;font-size:14px;background:#fff">
+            <input name="email" type="email" placeholder="{{ t.f_email }}" style="padding:14px;border:1px solid rgba(38,34,29,.2);border-radius:11px;font-size:14px;background:#fff">
+            <button type="submit" style="margin-top:2px;background:oklch(0.6 0.12 42);color:#fff;font-weight:700;font-size:15px;padding:15px;border:none;border-radius:11px;cursor:pointer">{{ t.f_submit }}</button>
+          </form>
+          <div style="text-align:center;font-size:13px;color:#7a6f60;margin-top:14px">{{ t.or_call }} <a href="{{ telHref }}" style="font-weight:700;color:oklch(0.5 0.11 42);border-bottom:1px solid currentColor">{{ phone }}</a></div>
+        </div>
+
+        <footer style="padding:26px 22px 34px;background:#26221d;color:#c7bca9">
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:10px"><div style="width:22px;height:22px;border-radius:6px;background:oklch(0.6 0.12 42)"></div><div style="font-family:'Libre Baskerville';font-weight:700;font-size:14px;color:#f5f0e8">RC Enterprise</div></div>
+          <p style="font-size:13px;line-height:1.55;margin:0 0 10px">{{ t.footer_tagline }}</p>
+          <div style="font-size:12.5px;line-height:1.7"><div style="font-weight:700;color:#f5f0e8">{{ t.area_title }}</div>{{ t.area_text }}<div style="margin-top:8px;font-family:ui-monospace,monospace;font-size:11.5px;color:#8d8272">{{ t.hours }}</div></div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:11px;color:#8d8272">{{ t.footer_rights }}</div>
+        </footer>
+      </div>
+            <!-- ============ OPTION 1b — BOLD TRADE ============ -->
+      <div id="1b" style="position:relative;width:430px;flex:0 0 430px;border-radius:32px;overflow:hidden;box-shadow:0 34px 80px -34px rgba(9,18,30,.7);border:1px solid rgba(9,18,30,.2);background:#0f2033;font-family:'Barlow',sans-serif;color:#eef2f6">
+        <div style="position:absolute;top:16px;left:16px;z-index:30;background:oklch(0.72 0.17 55);color:#0f2033;font:800 11px/1 'Archivo';padding:8px 12px;border-radius:8px;letter-spacing:.04em">1b · BOLD TRADE</div>
+
+        <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 18px;background:rgba(15,32,51,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1)">
+          <div style="display:flex;align-items:center;gap:9px">
+            <div style="width:28px;height:28px;border-radius:6px;background:oklch(0.72 0.17 55);color:#0f2033;font:900 15px/1 'Archivo';display:flex;align-items:center;justify-content:center">R</div>
+            <div style="font-family:'Archivo';font-weight:800;font-size:15px;letter-spacing:.02em">RC ENTERPRISE</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="display:flex;background:rgba(255,255,255,.1);border-radius:999px;padding:3px">
+              <button onClick="{{ setEN }}" style="{{ enStyle }}">EN</button>
+              <button onClick="{{ setES }}" style="{{ esStyle }}">ES</button>
+            </div>
+            <a href="{{ telHref }}" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:oklch(0.72 0.17 55);color:#0f2033;font-size:15px">☎</a>
+          </div>
+        </header>
+
+        <div style="position:relative;padding:38px 22px 40px;background:linear-gradient(160deg,#122842,#0d1c2e)">
+          <div style="display:inline-block;font:800 10px/1 'Archivo';letter-spacing:.14em;text-transform:uppercase;color:oklch(0.72 0.17 55);border:1px solid oklch(0.72 0.17 55 / .5);padding:6px 9px;border-radius:6px;margin-bottom:16px">{{ t.hero_eyebrow }}</div>
+          <h1 style="font-family:'Archivo';font-weight:900;font-size:34px;line-height:1.05;letter-spacing:-.01em;margin:0 0 14px;text-transform:uppercase">{{ t.hero_title }}</h1>
+          <p style="font-size:15px;line-height:1.55;color:#b7c4d2;margin:0 0 22px">{{ t.hero_sub }}</p>
+          <a href="{{ telHref }}" style="display:flex;align-items:center;justify-content:center;gap:8px;background:oklch(0.72 0.17 55);color:#0f2033;font-family:'Archivo';font-weight:800;font-size:15px;padding:16px;border-radius:10px;text-transform:uppercase;letter-spacing:.02em">☎ {{ t.cta_call }}</a>
+          <div style="display:flex;align-items:center;gap:9px;justify-content:center;color:#8ea0b3;font-size:13px;margin-top:14px"><span style="color:oklch(0.78 0.15 75);letter-spacing:2px">★★★★★</span>{{ t.rating }}</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1)">
+          <sc-for list="{{ trust }}" as="b" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:9px;background:#0f2033;padding:15px 16px;font:600 12.5px/1.25 'Barlow';color:#dbe3ec"><span style="width:8px;height:8px;background:oklch(0.72 0.17 55);flex:none"></span>{{ b }}</div>
+          </sc-for>
+        </div>
+
+        <div style="padding:32px 22px;background:#f4f6f8;color:#0f2033">
+          <div style="font:800 10px/1 'Archivo';letter-spacing:.14em;text-transform:uppercase;color:oklch(0.6 0.15 45);margin-bottom:8px">{{ t.services_sub }}</div>
+          <h2 style="font-family:'Archivo';font-weight:900;font-size:26px;text-transform:uppercase;margin:0 0 20px">{{ t.services_title }}</h2>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <sc-for list="{{ services }}" as="s" hint-placeholder-count="5">
+              <div style="display:flex;gap:14px;align-items:center;padding:15px 0;border-top:1px solid rgba(15,32,51,.12)">
+                <div style="font-family:'Archivo';font-weight:900;font-size:20px;color:oklch(0.72 0.17 55);width:30px;flex:none">{{ s.n }}</div>
+                <div><div style="font-family:'Archivo';font-weight:800;font-size:15px;text-transform:uppercase">{{ s.name }}</div><div style="font-size:13px;line-height:1.5;color:#4c5a68;margin-top:2px">{{ s.desc }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:32px 22px;background:#0f2033">
+          <h2 style="font-family:'Archivo';font-weight:900;font-size:26px;text-transform:uppercase;margin:0 0 3px">{{ t.work_title }}</h2>
+          <p style="font-size:13.5px;color:#8ea0b3;margin:0 0 18px">{{ t.work_sub }}</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
+              <div style="position:relative;aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:repeating-linear-gradient(45deg,#16304d,#16304d 11px,#1b3856 11px,#1b3856 22px);border:1px solid rgba(255,255,255,.08)">
+                <span style="position:absolute;top:8px;left:8px;font:700 9px/1 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#0f2033;background:oklch(0.72 0.17 55);padding:4px 6px;border-radius:4px">{{ t.photo }}</span>
+                <span style="position:absolute;left:9px;right:9px;bottom:9px;font-family:'Archivo';font-weight:700;font-size:12px;line-height:1.2;text-transform:uppercase;color:#dbe3ec">{{ g.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:32px 22px;background:oklch(0.72 0.17 55);color:#0f2033">
+          <h2 style="font-family:'Archivo';font-weight:900;font-size:26px;text-transform:uppercase;margin:0 0 3px">{{ t.reviews_title }}</h2>
+          <p style="font-size:13.5px;color:#3a2a12;margin:0 0 18px;font-weight:600">{{ t.reviews_sub }}</p>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+              <div style="background:#0f2033;color:#eef2f6;border-radius:11px;padding:16px">
+                <div style="color:oklch(0.78 0.15 75);letter-spacing:2px;font-size:13px;margin-bottom:8px">★★★★★</div>
+                <p style="font-size:13.5px;line-height:1.55;margin:0 0 12px">{{ r.text }}</p>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:#8ea0b3"><span style="font-family:'Archivo';font-weight:800;color:#fff;text-transform:uppercase">{{ r.name }}</span><span>{{ r.date }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font:700 11px/1.4 ui-monospace,monospace;color:#3a2a12;margin-top:14px">{{ t.reviews_note }}</div>
+        </div>
+
+        <div style="padding:34px 22px;background:#0d1c2e">
+          <h2 style="font-family:'Archivo';font-weight:900;font-size:26px;text-transform:uppercase;margin:0 0 4px">{{ t.contact_title }}</h2>
+          <p style="font-size:13.5px;color:#8ea0b3;margin:0 0 18px">{{ t.contact_sub }}</p>
+          <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:11px">
+            <input name="name" required placeholder="{{ t.f_name }}" style="padding:14px;border:1px solid rgba(255,255,255,.18);border-radius:9px;font-size:14px;background:rgba(255,255,255,.06);color:#fff">
+            <input name="phone" required type="tel" placeholder="{{ t.f_phone }}" style="padding:14px;border:1px solid rgba(255,255,255,.18);border-radius:9px;font-size:14px;background:rgba(255,255,255,.06);color:#fff">
+            <input name="email" type="email" placeholder="{{ t.f_email }}" style="padding:14px;border:1px solid rgba(255,255,255,.18);border-radius:9px;font-size:14px;background:rgba(255,255,255,.06);color:#fff">
+            <button type="submit" style="margin-top:2px;background:oklch(0.72 0.17 55);color:#0f2033;font-family:'Archivo';font-weight:800;font-size:15px;padding:16px;border:none;border-radius:9px;cursor:pointer;text-transform:uppercase">{{ t.f_submit }}</button>
+          </form>
+          <div style="text-align:center;font-size:13px;color:#8ea0b3;margin-top:14px">{{ t.or_call }} <a href="{{ telHref }}" style="font-family:'Archivo';font-weight:800;color:oklch(0.78 0.15 70)">{{ phone }}</a></div>
+        </div>
+
+        <footer style="padding:26px 22px 34px;background:#0f2033;color:#8ea0b3;border-top:1px solid rgba(255,255,255,.08)">
+          <div style="font-size:12.5px;line-height:1.7"><div style="font-family:'Archivo';font-weight:800;color:#fff;text-transform:uppercase;font-size:13px">{{ t.area_title }}</div>{{ t.area_text }}<div style="margin-top:8px;font-family:ui-monospace,monospace;font-size:11.5px">{{ t.hours }}</div></div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:11px">{{ t.footer_rights }}</div>
+        </footer>
+      </div>
+
+      <!-- ============ OPTION 1c — FRESH COAT ============ -->
+      <div id="1c" style="position:relative;width:430px;flex:0 0 430px;border-radius:32px;overflow:hidden;box-shadow:0 34px 80px -34px rgba(28,33,29,.4);border:1px solid rgba(28,33,29,.09);background:#fafbf9;font-family:'Manrope',sans-serif;color:#1c211d">
+        <div style="position:absolute;top:16px;left:16px;z-index:30;background:oklch(0.68 0.06 150);color:#fff;font:700 11px/1 'Manrope';padding:8px 12px;border-radius:999px;letter-spacing:.04em">1c · Fresh Coat</div>
+
+        <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 18px;background:rgba(250,251,249,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgba(28,33,29,.07)">
+          <div style="display:flex;align-items:center;gap:9px">
+            <div style="width:26px;height:26px;border-radius:50%;background:oklch(0.68 0.06 150)"></div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:15px">RC Enterprise</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="display:flex;background:rgba(28,33,29,.06);border-radius:999px;padding:3px">
+              <button onClick="{{ setEN }}" style="{{ enStyle }}">EN</button>
+              <button onClick="{{ setES }}" style="{{ esStyle }}">ES</button>
+            </div>
+            <a href="{{ telHref }}" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:oklch(0.68 0.06 150);color:#fff;font-size:15px">☎</a>
+          </div>
+        </header>
+
+        <div style="padding:40px 24px 36px">
+          <div style="font:700 12px/1 'Manrope';letter-spacing:.02em;color:oklch(0.55 0.07 150);margin-bottom:16px">{{ t.hero_eyebrow }}</div>
+          <h1 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:35px;line-height:1.08;letter-spacing:-.02em;margin:0 0 16px">{{ t.hero_title }}</h1>
+          <p style="font-size:15px;line-height:1.6;color:#565e56;margin:0 0 24px">{{ t.hero_sub }}</p>
+          <a href="{{ telHref }}" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#1c211d;color:#fafbf9;font-weight:700;font-size:15px;padding:16px;border-radius:14px">☎ {{ t.cta_call }}</a>
+          <div style="display:flex;align-items:center;gap:9px;justify-content:center;color:#7d857d;font-size:13px;margin-top:14px"><span style="color:oklch(0.68 0.06 150);letter-spacing:2px">★★★★★</span>{{ t.rating }}</div>
+        </div>
+
+        <div style="padding:0 24px 30px">
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ trust }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:7px;background:oklch(0.96 0.02 150);border-radius:999px;padding:9px 14px;font-size:12.5px;font-weight:600;color:#374037"><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.68 0.06 150)"></span>{{ b }}</div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:32px 24px;background:oklch(0.97 0.012 150);border-top:1px solid rgba(28,33,29,.06)">
+          <h2 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;letter-spacing:-.01em;margin:0 0 4px">{{ t.services_title }}</h2>
+          <p style="font-size:13.5px;color:#7d857d;margin:0 0 20px">{{ t.services_sub }}</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ services }}" as="s" hint-placeholder-count="5">
+              <div style="background:#fff;border:1px solid rgba(28,33,29,.07);border-radius:16px;padding:16px">
+                <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;margin-bottom:4px">{{ s.name }}</div>
+                <div style="font-size:13px;line-height:1.5;color:#6b736b">{{ s.desc }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:32px 24px">
+          <h2 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;letter-spacing:-.01em;margin:0 0 4px">{{ t.work_title }}</h2>
+          <p style="font-size:13.5px;color:#7d857d;margin:0 0 18px">{{ t.work_sub }}</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+            <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
+              <div style="position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(45deg,#e8ede7,#e8ede7 11px,#f0f3ef 11px,#f0f3ef 22px);border:1px solid rgba(28,33,29,.07)">
+                <span style="position:absolute;top:9px;left:9px;font:600 9px/1 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#8a938a;background:rgba(255,255,255,.8);padding:4px 6px;border-radius:6px">{{ t.photo }}</span>
+                <span style="position:absolute;left:10px;right:10px;bottom:10px;font-weight:700;font-size:12px;line-height:1.25;color:#414941">{{ g.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:32px 24px;background:oklch(0.97 0.012 150)">
+          <h2 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;letter-spacing:-.01em;margin:0 0 3px">{{ t.reviews_title }}</h2>
+          <p style="font-size:13.5px;color:#7d857d;margin:0 0 18px">{{ t.reviews_sub }}</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+              <div style="background:#fff;border:1px solid rgba(28,33,29,.07);border-radius:16px;padding:16px">
+                <div style="color:oklch(0.68 0.06 150);letter-spacing:2px;font-size:13px;margin-bottom:8px">★★★★★</div>
+                <p style="font-size:13.5px;line-height:1.55;margin:0 0 12px;color:#3a423a">{{ r.text }}</p>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:#8a938a"><span style="font-weight:700;color:#1c211d">{{ r.name }}</span><span>{{ r.date }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font:500 11px/1.4 ui-monospace,monospace;color:#9aa39a;margin-top:14px">{{ t.reviews_note }}</div>
+        </div>
+
+        <div style="padding:34px 24px;background:#1c211d;color:#fafbf9">
+          <h2 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;letter-spacing:-.01em;margin:0 0 4px">{{ t.contact_title }}</h2>
+          <p style="font-size:13.5px;color:#a7b0a7;margin:0 0 18px">{{ t.contact_sub }}</p>
+          <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:11px">
+            <input name="name" required placeholder="{{ t.f_name }}" style="padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:12px;font-size:14px;background:rgba(255,255,255,.07);color:#fff">
+            <input name="phone" required type="tel" placeholder="{{ t.f_phone }}" style="padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:12px;font-size:14px;background:rgba(255,255,255,.07);color:#fff">
+            <input name="email" type="email" placeholder="{{ t.f_email }}" style="padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:12px;font-size:14px;background:rgba(255,255,255,.07);color:#fff">
+            <button type="submit" style="margin-top:2px;background:oklch(0.68 0.06 150);color:#0e130e;font-weight:800;font-size:15px;padding:16px;border:none;border-radius:12px;cursor:pointer">{{ t.f_submit }}</button>
+          </form>
+          <div style="text-align:center;font-size:13px;color:#a7b0a7;margin-top:14px">{{ t.or_call }} <a href="{{ telHref }}" style="font-weight:700;color:oklch(0.75 0.07 150)">{{ phone }}</a></div>
+        </div>
+
+        <footer style="padding:26px 24px 34px;background:#1c211d;color:#a7b0a7">
+          <div style="font-size:12.5px;line-height:1.7"><div style="font-family:'Bricolage Grotesque';font-weight:700;color:#fafbf9;font-size:14px">{{ t.area_title }}</div>{{ t.area_text }}<div style="margin-top:8px;font-family:ui-monospace,monospace;font-size:11.5px;color:#7d857d">{{ t.hours }}</div></div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:11px;color:#7d857d">{{ t.footer_rights }}</div>
+        </footer>
+      </div>
+
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'en' };
+
+  get PHONE() { return '(503) 555-0187'; }
+  get TEL() { return 'tel:+15035550187'; }
+  get EMAIL() { return 'estimates@rc-enterprise.com'; }
+
+  dict = {
+    en: {
+      hero_eyebrow: 'Painting & staining · Portland metro, OR',
+      hero_title: 'A flawless coat of paint, backed by 27 years of craft.',
+      hero_sub: 'Interior and exterior painting for homes across the Portland metro. Honest work, clean job sites, and free estimates.',
+      cta_call: 'Call for a free estimate',
+      cta_work: 'See our work',
+      rating: '5.0 · verified reviews',
+      trust: ['27 years of experience', 'Se habla español', 'Free estimates', 'Licensed & insured'],
+      services_title: 'What we do',
+      services_sub: 'Five services, one standard: done right.',
+      services: [
+        { n: '1', name: 'Interior painting', desc: 'Walls, ceilings, trim and cabinets finished clean and crisp.' },
+        { n: '2', name: 'Exterior painting', desc: 'Weather-ready coatings that protect and refresh your home.' },
+        { n: '3', name: 'Staining & sealing', desc: 'Decks, fences and doors sealed to last through the seasons.' },
+        { n: '4', name: 'Power washing', desc: 'Siding, patios and driveways brought back to life.' },
+        { n: '5', name: 'Prep & repair', desc: 'Sanding, patching and priming done right before we paint.' }
+      ],
+      work_title: 'Recent work',
+      work_sub: 'A few projects around the Portland metro.',
+      photo: 'photo',
+      gallery: [
+        { label: 'Exterior repaint' }, { label: 'Kitchen cabinets' }, { label: 'Deck staining' },
+        { label: 'Living room' }, { label: 'Fence & siding' }, { label: 'Trim & doors' }
+      ],
+      reviews_title: 'What clients say',
+      reviews_sub: '5.0 rating from verified reviews.',
+      reviews_note: 'Reviews from HomeAdvisor / Google.',
+      reviews: [
+        { name: 'Marianne T.', date: 'Jun 2023', text: 'Fidel was conscientious and detail oriented — he did a great job for us!' },
+        { name: 'Esperanza W.', date: 'Nov 2021', text: 'I interviewed a number of painting companies before selecting RC Enterprise to paint about 1,200 sq ft. We couldn\u2019t be happier. He came on time and worked long hours. The quality of his work is absolutely tops.' },
+        { name: 'Jon S.', date: 'Jun 2021', text: 'The crew did a great job prepping, painting, and cleaning up. Great communication and follow-through.' }
+      ],
+      contact_title: 'Get your free estimate',
+      contact_sub: 'Tell us about your project and we\u2019ll call you back.',
+      f_name: 'Full name',
+      f_phone: 'Phone',
+      f_email: 'Email (optional)',
+      f_submit: 'Request estimate',
+      or_call: 'or call',
+      area_title: 'Where we work',
+      area_text: 'Based in Beaverton — serving Portland, Beaverton, Hillsboro, Tigard, Lake Oswego and nearby.',
+      hours: 'Mon–Fri 9–5 · Sat 10–4 · Sun closed',
+      footer_tagline: 'Residential painting done with care since 1998.',
+      footer_rights: '© 2026 Residential Construction Enterprise, LLC'
+    },
+    es: {
+      hero_eyebrow: 'Pintura y teñido · Área de Portland, OR',
+      hero_title: 'Un acabado impecable, con 27 años de oficio.',
+      hero_sub: 'Pintura interior y exterior para hogares en el área de Portland. Trabajo honesto, obra limpia y estimados gratis.',
+      cta_call: 'Llama para tu estimado gratis',
+      cta_work: 'Ver trabajos',
+      rating: '5.0 · reseñas verificadas',
+      trust: ['27 años de experiencia', 'Se habla español', 'Estimados gratis', 'Con licencia y asegurado'],
+      services_title: 'Lo que hacemos',
+      services_sub: 'Cinco servicios, un estándar: bien hecho.',
+      services: [
+        { n: '1', name: 'Pintura interior', desc: 'Paredes, techos, molduras y gabinetes con acabado impecable.' },
+        { n: '2', name: 'Pintura exterior', desc: 'Recubrimientos resistentes al clima que protegen y renuevan tu casa.' },
+        { n: '3', name: 'Teñido y sellado', desc: 'Terrazas, cercas y puertas selladas para durar todas las estaciones.' },
+        { n: '4', name: 'Lavado a presión', desc: 'Revestimientos, patios y entradas como nuevos.' },
+        { n: '5', name: 'Preparación y reparación', desc: 'Lijado, resane e imprimación bien hechos antes de pintar.' }
+      ],
+      work_title: 'Trabajos recientes',
+      work_sub: 'Algunos proyectos en el área de Portland.',
+      photo: 'foto',
+      gallery: [
+        { label: 'Repintado exterior' }, { label: 'Gabinetes de cocina' }, { label: 'Teñido de terraza' },
+        { label: 'Sala' }, { label: 'Cerca y revestimiento' }, { label: 'Molduras y puertas' }
+      ],
+      reviews_title: 'Lo que dicen los clientes',
+      reviews_sub: 'Calificación 5.0 en reseñas verificadas.',
+      reviews_note: 'Reseñas de HomeAdvisor / Google.',
+      reviews: [
+        { name: 'Marianne T.', date: 'Jun 2023', text: 'Fidel fue meticuloso y detallista — ¡hizo un excelente trabajo para nosotros!' },
+        { name: 'Esperanza W.', date: 'Nov 2021', text: 'Entrevisté a varias compañías antes de elegir a RC Enterprise para pintar unos 1,200 pies². No podríamos estar más felices. Llegó puntual y trabajó largas horas. La calidad de su trabajo es de primera.' },
+        { name: 'Jon S.', date: 'Jun 2021', text: 'El equipo hizo un gran trabajo preparando, pintando y limpiando. Excelente comunicación y seguimiento.' }
+      ],
+      contact_title: 'Solicita tu estimado gratis',
+      contact_sub: 'Cuéntanos de tu proyecto y te llamamos.',
+      f_name: 'Nombre completo',
+      f_phone: 'Teléfono',
+      f_email: 'Correo (opcional)',
+      f_submit: 'Pedir estimado',
+      or_call: 'o llama',
+      area_title: 'Dónde trabajamos',
+      area_text: 'En Beaverton — servimos Portland, Beaverton, Hillsboro, Tigard, Lake Oswego y alrededores.',
+      hours: 'Lun–Vie 9–5 · Sáb 10–4 · Dom cerrado',
+      footer_tagline: 'Pintura residencial hecha con cuidado desde 1998.',
+      footer_rights: '© 2026 Residential Construction Enterprise, LLC'
+    }
+  };
+
+  toggleStyle(active) {
+    return {
+      border: 'none', cursor: 'pointer', borderRadius: '999px', padding: '6px 12px',
+      font: "600 12px/1 'Work Sans', sans-serif", transition: 'all .15s',
+      background: active ? '#1b1b1b' : 'transparent',
+      color: active ? '#fff' : 'inherit',
+      opacity: active ? 1 : 0.55
+    };
+  }
+
+  submit = (e) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const es = this.state.lang === 'es';
+    const subj = encodeURIComponent((es ? 'Solicitud de estimado — ' : 'Free estimate request — ') + (f.get('name') || ''));
+    const body = encodeURIComponent(
+      (es ? 'Nombre' : 'Name') + ': ' + (f.get('name') || '') + '\n' +
+      (es ? 'Teléfono' : 'Phone') + ': ' + (f.get('phone') || '') + '\n' +
+      (es ? 'Correo' : 'Email') + ': ' + (f.get('email') || '')
+    );
+    window.location.href = 'mailto:' + this.EMAIL + '?subject=' + subj + '&body=' + body;
+  };
+
+  renderVals() {
+    const lang = this.state.lang;
+    const t = this.dict[lang];
+    return {
+      t,
+      trust: t.trust,
+      services: t.services,
+      gallery: t.gallery,
+      reviews: t.reviews,
+      phone: this.PHONE,
+      telHref: this.TEL,
+      setEN: () => this.setState({ lang: 'en' }),
+      setES: () => this.setState({ lang: 'es' }),
+      enStyle: this.toggleStyle(lang === 'en'),
+      esStyle: this.toggleStyle(lang === 'es'),
+      submit: this.submit
+    };
+  }
+}
+</script>
+</body>
+</html>

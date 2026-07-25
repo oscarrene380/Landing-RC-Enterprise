@@ -1,0 +1,20 @@
+---
+/**
+ * Texto bilingüe. Emite las dos versiones en el HTML y CSS muestra la activa
+ * según [data-lang] en <html>. Ventaja sobre ocultar con JS: sin parpadeo,
+ * funciona sin JavaScript y ambos idiomas quedan en el HTML para SEO.
+ *
+ * Uso: <T en="Services" es="Servicios" />
+ */
+interface Props {
+  en: string;
+  es: string;
+  /** Usa <div> en vez de <span> cuando el texto es un bloque */
+  block?: boolean;
+}
+
+const { en, es, block = false } = Astro.props;
+const Tag = block ? 'div' : 'span';
+---
+
+<Tag data-t="en" lang="en">{en}</Tag><Tag data-t="es" lang="es">{es}</Tag>

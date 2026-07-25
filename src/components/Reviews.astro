@@ -1,0 +1,247 @@
+---
+import Icon from './Icon.astro';
+import T from './T.astro';
+import { reviews, ratingSummary, formatReviewDate } from '../data/reviews';
+import { social } from '../data/site';
+---
+
+<section id="reviews" class="section reviews">
+  <div class="container">
+    <header class="reviews__head reveal">
+      <div>
+        <p class="eyebrow">
+          <T en="What clients say" es="Lo que dicen los clientes" />
+        </p>
+        <h2 class="reviews__title">
+          <T en="5.0 across the board" es="5.0 en todas las reseñas" />
+        </h2>
+      </div>
+
+      <div class="reviews__score">
+        <span class="reviews__stars" aria-hidden="true">
+          {Array.from({ length: 5 }).map(() => <Icon name="star" size={20} />)}
+        </span>
+        <p class="reviews__score-text">
+          <strong>{ratingSummary.value.toFixed(1)}</strong>
+          <T
+            en={`from ${ratingSummary.count} verified reviews`}
+            es={`de ${ratingSummary.count} reseñas verificadas`}
+          />
+        </p>
+      </div>
+    </header>
+
+    <ul class="reviews__grid">
+      {
+        reviews.map((r, i) => (
+          <li class:list={['review', 'reveal', { 'review--lead': i === 0 }]} style={`transition-delay:${i * 80}ms`}>
+            <span class="review__stars" aria-label={`${r.rating} / 5`}>
+              {Array.from({ length: r.rating }).map(() => <Icon name="star" size={16} />)}
+            </span>
+            <blockquote class="review__quote">
+              <T en={r.en} es={r.es} />
+            </blockquote>
+            <footer class="review__meta">
+              <span class="review__name">{r.name}</span>
+              <span class="review__date">
+                <span data-t="en">{formatReviewDate(r.date, 'en')}</span><span data-t="es">{formatReviewDate(r.date, 'es')}</span>
+                {' · '}{r.source}
+              </span>
+            </footer>
+          </li>
+        ))
+      }
+    </ul>
+
+    <aside class="ask reveal">
+      <div class="ask__copy">
+        <h3 class="ask__title">
+          <T en="Worked with us? Leave a review" es="¿Trabajamos contigo? Déjanos una reseña" />
+        </h3>
+        <p class="ask__text">
+          <T
+            en="It takes 30 seconds and it is the single biggest help you can give a small local crew."
+            es="Toma 30 segundos y es la mayor ayuda que le puedes dar a un equipo local pequeño."
+          />
+        </p>
+      </div>
+      <div class="ask__actions">
+        <a
+          href={social.googleReview}
+          class="btn btn--primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="google" size={18} />
+          <T en="Review us on Google" es="Reseñar en Google" />
+        </a>
+        <a
+          href={social.googleMaps}
+          class="btn btn--ghost"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <T en="Read all reviews" es="Ver todas las reseñas" />
+          <Icon name="arrowUpRight" size={18} />
+        </a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    background: var(--ink-800);
+  }
+
+  .reviews__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .reviews__title {
+    font-size: var(--step-5);
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+  }
+
+  .reviews__score {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .reviews__stars,
+  .review__stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--coral-400);
+    fill: currentColor;
+  }
+
+  .reviews__score-text {
+    font-size: var(--step--1);
+    color: var(--text-on-dark-muted);
+  }
+
+  .reviews__score-text strong {
+    color: var(--text-on-dark);
+    margin-right: 0.35em;
+  }
+
+  .reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: clamp(0.9rem, 1.8vw, 1.25rem);
+    list-style: none;
+    padding: 0;
+  }
+
+  .review {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    background: var(--ink-700);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    padding: clamp(1.3rem, 2.4vw, 1.75rem);
+  }
+
+  .review--lead {
+    background: var(--coral-500);
+    border-color: transparent;
+    color: #fff5f3;
+  }
+
+  .review--lead .review__stars {
+    color: #fff5f3;
+  }
+
+  .review__quote {
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    margin: 0;
+    flex: 1;
+  }
+
+  .review--lead .review__quote {
+    font-size: var(--step-1);
+  }
+
+  .review__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--text-on-dark-muted);
+    border-top: 1px solid var(--border-dark);
+    padding-top: 0.9rem;
+  }
+
+  .review--lead .review__meta {
+    color: #ffdcd6;
+    border-top-color: rgb(255 255 255 / 0.3);
+  }
+
+  .review__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-on-dark);
+  }
+
+  .review--lead .review__name {
+    color: #fff;
+  }
+
+  /* --- Pedir reseña --- */
+
+  .ask {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    padding: clamp(1.4rem, 3vw, 2rem);
+    border: 1px dashed var(--border-dark-strong);
+    border-radius: var(--radius);
+    background: var(--ink-900);
+  }
+
+  .ask__copy {
+    max-width: 46ch;
+  }
+
+  .ask__title {
+    font-size: var(--step-2);
+    margin-bottom: 0.35rem;
+  }
+
+  .ask__text {
+    font-size: var(--step--1);
+    color: var(--text-on-dark-muted);
+  }
+
+  .ask__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  @media (min-width: 900px) {
+    .reviews__grid {
+      grid-template-columns: 1.35fr 1fr 1fr;
+      align-items: stretch;
+    }
+  }
+</style>

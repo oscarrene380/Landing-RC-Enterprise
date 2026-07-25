@@ -1,0 +1,125 @@
+---
+import { Image } from 'astro:assets';
+import T from './T.astro';
+import { gallery } from '../data/gallery';
+---
+
+<section id="work" class="section section--dark gallery">
+  <div class="container">
+    <header class="gallery__head reveal">
+      <p class="eyebrow">
+        <T en="Recent work" es="Trabajos recientes" />
+      </p>
+      <h2 class="gallery__title">
+        <T en="Real homes, real finishes" es="Casas reales, acabados reales" />
+      </h2>
+      <p class="lede">
+        <T
+          en="Every photo below is our own crew's work around Portland, Beaverton and Hillsboro. No stock images."
+          es="Cada foto de abajo es trabajo de nuestro propio equipo en Portland, Beaverton y Hillsboro. Nada de imágenes de banco."
+        />
+      </p>
+    </header>
+
+    <ul class="gallery__grid">
+      {
+        gallery.map((item, i) => (
+          <li class:list={['shot', 'reveal', { 'shot--wide': item.wide }]}>
+            <Image
+              src={item.src}
+              alt={item.en.alt}
+              data-alt-en={item.en.alt}
+              data-alt-es={item.es.alt}
+              widths={[420, 700, 1000]}
+              sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 92vw"
+              loading={i < 2 ? 'eager' : 'lazy'}
+              decoding="async"
+              class="shot__img"
+            />
+            <span class="shot__caption">
+              <T en={item.en.title} es={item.es.title} />
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .gallery__head {
+    max-width: 60ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .gallery__title {
+    font-size: var(--step-5);
+    text-transform: uppercase;
+    margin: 0.6rem 0 0.9rem;
+  }
+
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: clamp(0.6rem, 1.2vw, 1rem);
+    list-style: none;
+    padding: 0;
+  }
+
+  .shot {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-dark);
+    background: var(--ink-700);
+  }
+
+  .shot__img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: scale 600ms var(--ease-out);
+  }
+
+  .shot:hover .shot__img {
+    scale: 1.045;
+  }
+
+  .shot__caption {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 2.5rem 0.9rem 0.8rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(to top, rgb(6 12 17 / 0.88), transparent);
+  }
+
+  @media (min-width: 640px) {
+    .gallery__grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .shot {
+      grid-column: span 3;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .shot {
+      grid-column: span 2;
+    }
+
+    .shot--wide {
+      grid-column: span 4;
+    }
+
+    .shot--wide .shot__img {
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>

@@ -1,0 +1,193 @@
+---
+import Icon from './Icon.astro';
+import T from './T.astro';
+import { contact, hours, serviceAreas, social, mapSrc } from '../data/site';
+---
+
+<section id="area" class="section section--light area">
+  <div class="container area__inner">
+    <div class="area__copy reveal">
+      <p class="eyebrow">
+        <T en="Where we work" es="Dónde trabajamos" />
+      </p>
+      <h2 class="area__title">
+        <T en="Based in Beaverton" es="Con base en Beaverton" />
+      </h2>
+      <p class="lede">
+        <T
+          en="We serve the west side of the Portland metro and everything within about 25 miles of Beaverton."
+          es="Cubrimos el lado oeste del área de Portland y todo lo que esté a unas 25 millas de Beaverton."
+        />
+      </p>
+
+      <ul class="area__cities">
+        {serviceAreas.map((city) => <li class="area__city">{city}</li>)}
+      </ul>
+
+      <dl class="area__facts">
+        <div class="fact">
+          <dt><Icon name="pin" size={18} /><T en="Address" es="Dirección" /></dt>
+          <dd>
+            <a href={social.googleMaps} target="_blank" rel="noopener noreferrer">
+              {contact.address.street}, {contact.address.city}, {contact.address.region}{' '}
+              {contact.address.postalCode}
+            </a>
+          </dd>
+        </div>
+
+        <div class="fact">
+          <dt><Icon name="clock" size={18} /><T en="Hours" es="Horario" /></dt>
+          <dd>
+            <ul class="hours">
+              {
+                hours.map((h) => (
+                  <li>
+                    <span><T en={h.en} es={h.es} /></span>
+                    <span class="hours__time">
+                      {typeof h.time === 'string' ? h.time : <T en={h.time.en} es={h.time.es} />}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="area__map reveal">
+      <iframe
+        src={mapSrc}
+        title="Residential Construction Enterprise, LLC on Google Maps"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+      <a
+        href={social.googleMaps}
+        class="btn btn--ghost area__map-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <T en="Open in Google Maps" es="Abrir en Google Maps" />
+        <Icon name="arrowUpRight" size={18} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .area__inner {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .area__title {
+    font-size: var(--step-5);
+    text-transform: uppercase;
+    margin: 0.6rem 0 0.9rem;
+  }
+
+  .area__cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+  }
+
+  .area__city {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-pill);
+    background: var(--paper-50);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-on-light);
+  }
+
+  .area__facts {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .fact dt {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal-700);
+    margin-bottom: 0.5rem;
+  }
+
+  .fact dd {
+    margin: 0;
+    font-size: var(--step--1);
+    color: var(--text-on-light);
+  }
+
+  .fact a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--border-light);
+  }
+
+  .fact a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .hours {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.3rem;
+    max-width: 22rem;
+  }
+
+  .hours li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .hours__time {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-on-light-muted);
+  }
+
+  .area__map {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .area__map iframe {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    /* El mapa de Google es muy claro: lo bajamos para que no grite */
+    filter: saturate(0.85) contrast(1.03);
+  }
+
+  .area__map-link {
+    align-self: flex-start;
+  }
+
+  @media (min-width: 900px) {
+    .area__inner {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .area__map iframe {
+      aspect-ratio: 1 / 1;
+    }
+  }
+</style>
