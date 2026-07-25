@@ -5,28 +5,34 @@ import '../styles/global.css';
 
 import { site, contact, social, serviceAreas } from '../data/site';
 import { services } from '../data/services';
+import { asset } from '../lib/url';
 
 interface Props {
   title: string;
   description: string;
-  /** Ruta absoluta a la imagen de Open Graph */
+  /** Ruta dentro de public/, sin el prefijo de base */
   ogImage?: string;
 }
 
-const { title, description, ogImage = '/og.jpg' } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const { title, description, ogImage = 'og.jpg' } = Astro.props;
+
+/** URLs públicas, con el subdirectorio de GitHub Pages ya incluido. */
+const origin = Astro.site ?? new URL(site.url);
+const canonical = new URL(Astro.url.pathname, origin).href;
+const homeUrl = new URL(asset('/'), origin).href;
+const ogImageUrl = new URL(asset(ogImage), origin).href;
 
 /** Datos estructurados: ayuda a que Google muestre teléfono, horario y estrellas. */
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'HousePainter',
-  '@id': `${site.url}#business`,
+  '@id': `${homeUrl}#business`,
   name: site.name,
   alternateName: site.shortName,
-  url: site.url,
+  url: homeUrl,
   telephone: contact.phoneRaw,
   email: contact.email,
-  image: `${site.url}/og.jpg`,
+  image: ogImageUrl,
   priceRange: '$$',
   foundingDate: String(site.foundedYear),
   address: {
@@ -95,14 +101,15 @@ const jsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site ?? site.url).href} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="es_US" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <meta name="theme-color" content="#0e1a24" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
+    <link rel="apple-touch-icon" href={asset('favicon.svg')} />
 
     <!-- El iframe del mapa se carga en diferido; adelantamos la conexión -->
     <link rel="preconnect" href="https://maps.google.com" />

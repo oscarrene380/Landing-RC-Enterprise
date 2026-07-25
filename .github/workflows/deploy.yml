@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Publica en cada push a main
+  push:
+    branches: [main]
+  # …y también a mano desde la pestaña Actions
+  workflow_dispatch:
+
+# Permisos que necesita la acción para publicar en Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Si llegan dos pushes seguidos, deja terminar el despliegue en curso
+# y descarta los intermedios.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install, build & upload
+        uses: withastro/action@v4
+        with:
+          node-version: 22
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

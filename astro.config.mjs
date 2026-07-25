@@ -4,11 +4,19 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // Cambia esto por el dominio real antes de desplegar:
-  // afecta canonical, Open Graph, sitemap y robots.txt.
-  site: 'https://rcenterprise.com',
+  // --- Demo en GitHub Pages -------------------------------------------------
+  // El sitio se sirve en https://oscarrene380.github.io/Landing-RC-Enterprise/
+  // por eso hace falta `base`: sin él, el CSS y las imágenes darían 404.
+  //
+  // Cuando haya dominio propio (ej. rcenterprise.com):
+  //   1. site: 'https://rcenterprise.com'
+  //   2. borra la línea `base`
+  //   3. actualiza la URL del sitemap en public/robots.txt
+  site: 'https://oscarrene380.github.io',
+  base: '/Landing-RC-Enterprise',
 
-  integrations: [sitemap()],
+  // El filtro evita que el sitemap liste la misma URL con y sin barra final
+  integrations: [sitemap({ filter: (page) => page.endsWith('/') })],
 
   compressHTML: true,
 

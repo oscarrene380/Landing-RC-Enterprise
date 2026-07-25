@@ -3,6 +3,7 @@ import Icon from './Icon.astro';
 import T from './T.astro';
 import Wordmark from './Wordmark.astro';
 import { contact, site, social } from '../data/site';
+import { asset } from '../lib/url';
 
 const year = new Date().getFullYear();
 ---
@@ -18,7 +19,7 @@ const year = new Date().getFullYear();
         />
       </p>
       <img
-        src="/img/logo.jpg"
+        src={asset('img/logo.jpg')}
         width="150"
         height="83"
         loading="lazy"

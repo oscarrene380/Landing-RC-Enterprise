@@ -110,6 +110,30 @@ La key solo se usa al compilar, nunca llega al navegador.
 
 ---
 
+## Despliegue
+
+La demo se publica en **GitHub Pages**:
+<https://oscarrene380.github.io/Landing-RC-Enterprise/>
+
+Cada `git push` a `main` dispara `.github/workflows/deploy.yml`, que compila con
+`withastro/action` y publica `dist/`. No hay que subir la carpeta compilada ni
+mantener una rama `gh-pages`.
+
+**Activación (una sola vez):** en el repo → *Settings* → *Pages* → en **Source**
+elegir **GitHub Actions**.
+
+Como el sitio no vive en la raíz del dominio sino en `/Landing-RC-Enterprise/`,
+`astro.config.mjs` define `base`. Las rutas a archivos de `public/` pasan por el
+helper `asset()` de `src/lib/url.ts` para que ese prefijo se aplique solo.
+
+### Pasar a dominio propio
+
+1. En `astro.config.mjs`: `site: 'https://rcenterprise.com'` y borra la línea `base`.
+2. Actualiza la URL del sitemap en `public/robots.txt`.
+3. Añade un archivo `public/CNAME` con el dominio, y apunta el DNS a GitHub Pages.
+
+---
+
 ## SEO y accesibilidad
 
 - Datos estructurados `HousePainter` con teléfono, horario, zonas y calificación.
