@@ -34,13 +34,13 @@ export const servicePages: Record<string, Copy> = {
   // ---------------------------------------------------------------- interior
   'interior-painting': {
     en: {
-      title: 'Interior House Painting in Beaverton & Portland, OR',
+      title: 'Interior House Painting in Beaverton, OR',
       description:
-        'Interior painting for homes across the Portland metro: walls, ceilings, trim and cabinets. Furniture covered, floors protected, free estimates. Since 1998.',
+        'Interior painting for homes in Beaverton and the surrounding Portland metro: walls, ceilings, trim and cabinets. Furniture covered, floors protected, free estimates. Since 1998.',
       h1: 'Interior house painting',
       lede: 'Walls, ceilings, trim, doors and cabinets painted clean — with your furniture covered and your floors protected from the first day to the last.',
       intro: [
-        'Interior work happens inside a house people are still living in, and that changes how the job has to be run. Protection goes down before anything opens, the staging area stays in one place, and the rooms go back to normal at the end of each day. We have been painting homes around the Portland metro since 1998, and the thing clients bring up most often is not the color — it is that the house stayed livable while we were in it.',
+        'Interior work happens inside a house people are still living in, and that changes how the job has to be run. Protection goes down before anything opens, the staging area stays in one place, and the rooms go back to normal at the end of each day. We have been painting homes in Beaverton and around the Portland metro since 1998, and the thing clients bring up most often is not the color — it is that the house stayed livable while we were in it.',
         'We only take residential work. That focus is why the prep is right: the crew already knows how a textured ceiling from the seventies behaves compared to fresh drywall, and does not have to guess at what a wall needs before the first coat.',
       ],
       includes: [
@@ -84,16 +84,16 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'We paint interiors across Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin and Sherwood. Licensed and insured in Oregon. Se habla español.',
+        'We paint interiors across Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin and Sherwood. Licensed and insured in Oregon. Se habla español.',
     },
     es: {
-      title: 'Pintura Interior en Beaverton y Portland, OR',
+      title: 'Pintura Interior en Beaverton, OR',
       description:
-        'Pintura interior para casas en el área de Portland: paredes, techos, molduras y gabinetes. Muebles cubiertos, pisos protegidos y estimados gratis. Desde 1998.',
+        'Pintura interior para casas en Beaverton y alrededores: paredes, techos, molduras y gabinetes. Muebles cubiertos, pisos protegidos y estimados gratis. Desde 1998.',
       h1: 'Pintura interior',
       lede: 'Paredes, techos, molduras, puertas y gabinetes con acabado impecable — con tus muebles cubiertos y tus pisos protegidos de principio a fin.',
       intro: [
-        'El trabajo interior se hace dentro de una casa donde la gente sigue viviendo, y eso cambia la forma de organizarlo. La protección se coloca antes de abrir nada, el área de trabajo se mantiene en un solo lugar y los cuartos vuelven a la normalidad al terminar el día. Llevamos pintando casas en el área de Portland desde 1998, y lo que más mencionan los clientes no es el color: es que la casa siguió siendo habitable mientras estuvimos ahí.',
+        'El trabajo interior se hace dentro de una casa donde la gente sigue viviendo, y eso cambia la forma de organizarlo. La protección se coloca antes de abrir nada, el área de trabajo se mantiene en un solo lugar y los cuartos vuelven a la normalidad al terminar el día. Llevamos pintando casas en Beaverton y el área de Portland desde 1998, y lo que más mencionan los clientes no es el color: es que la casa siguió siendo habitable mientras estuvimos ahí.',
         'Solo tomamos trabajo residencial. Ese enfoque es la razón de que la preparación esté bien hecha: el equipo ya sabe cómo se comporta un techo texturizado de los años setenta comparado con tablaroca nueva, y no tiene que adivinar qué necesita una pared antes de la primera mano.',
       ],
       includes: [
@@ -137,14 +137,14 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Pintamos interiores en Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin y Sherwood. Con licencia y asegurados en Oregon. Se habla español.',
+        'Pintamos interiores en Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin y Sherwood. Con licencia y asegurados en Oregon. Se habla español.',
     },
   },
 
   // ---------------------------------------------------------------- exterior
   'exterior-painting': {
     en: {
-      title: 'Exterior House Painting in Portland & Beaverton, OR',
+      title: 'Exterior House Painting in Beaverton, OR',
       description:
         'Exterior house painting built for Oregon rain: siding, soffits, doors and garages. Washing and prep included, free estimates. Licensed, insured, since 1998.',
       h1: 'Exterior house painting',
@@ -194,10 +194,10 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Exterior painting across Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin and Sherwood. Licensed and insured in Oregon. Se habla español.',
+        'Exterior painting across Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin and Sherwood. Licensed and insured in Oregon. Se habla español.',
     },
     es: {
-      title: 'Pintura Exterior en Portland y Beaverton, OR',
+      title: 'Pintura Exterior en Beaverton, OR',
       description:
         'Pintura exterior hecha para la lluvia de Oregon: revestimientos, aleros, puertas y cocheras. Lavado y preparación incluidos, estimados gratis. Desde 1998.',
       h1: 'Pintura exterior',
@@ -247,16 +247,16 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Pintura exterior en Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin y Sherwood. Con licencia y asegurados en Oregon. Se habla español.',
+        'Pintura exterior en Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin y Sherwood. Con licencia y asegurados en Oregon. Se habla español.',
     },
   },
 
   // ------------------------------------------------------------ tenido/stain
   'staining-sealing': {
     en: {
-      title: 'Deck Staining & Sealing in Beaverton & Portland, OR',
+      title: 'Deck Staining & Sealing in Beaverton, OR',
       description:
-        'Deck, fence and door staining and sealing for Portland-area homes. Washed, dried and sealed against rain and UV so the grain stays warm, not gray.',
+        'Deck, fence and door staining and sealing for homes in Beaverton and the nearby Portland metro. Washed, dried and sealed against rain and UV so the grain stays warm, not gray.',
       h1: 'Deck staining and sealing',
       lede: 'Decks, fences and doors sealed against moisture and sun, so the grain stays warm instead of going silver-gray.',
       intro: [
@@ -304,12 +304,12 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Deck, fence and door staining across Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin and Sherwood. Licensed and insured. Se habla español.',
+        'Deck, fence and door staining across Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin and Sherwood. Licensed and insured. Se habla español.',
     },
     es: {
-      title: 'Teñido y Sellado de Terrazas en Beaverton y Portland, OR',
+      title: 'Teñido y Sellado de Terrazas en Beaverton, OR',
       description:
-        'Teñido y sellado de terrazas, cercas y puertas en el área de Portland. Lavado, secado y sellado contra lluvia y sol para que la madera no se agrise.',
+        'Teñido y sellado de terrazas, cercas y puertas en Beaverton y alrededores. Lavado, secado y sellado contra lluvia y sol para que la madera no se agrise.',
       h1: 'Teñido y sellado',
       lede: 'Terrazas, cercas y puertas selladas contra la humedad y el sol, para que la madera conserve su color en vez de volverse gris.',
       intro: [
@@ -357,16 +357,16 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Teñido de terrazas, cercas y puertas en Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin y Sherwood. Con licencia y asegurados. Se habla español.',
+        'Teñido de terrazas, cercas y puertas en Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin y Sherwood. Con licencia y asegurados. Se habla español.',
     },
   },
 
   // ------------------------------------------------------------ power wash
   'power-washing': {
     en: {
-      title: 'Power Washing in Beaverton & Portland, OR',
+      title: 'Power Washing in Beaverton, OR',
       description:
-        'Power washing for Portland-area homes: siding, patios, walkways and driveways stripped of moss, mildew and grime. Free estimates, licensed and insured.',
+        'Power washing for homes in Beaverton and the nearby Portland metro: siding, patios, walkways and driveways stripped of moss, mildew and grime. Free estimates, licensed and insured.',
       h1: 'Power washing',
       lede: 'Siding, patios, walkways and driveways stripped of moss, mildew and grime — as a job on its own or as the first day of a paint job.',
       intro: [
@@ -414,12 +414,12 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Power washing across Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin and Sherwood. Licensed and insured in Oregon. Se habla español.',
+        'Power washing across Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin and Sherwood. Licensed and insured in Oregon. Se habla español.',
     },
     es: {
-      title: 'Lavado a Presión en Beaverton y Portland, OR',
+      title: 'Lavado a Presión en Beaverton, OR',
       description:
-        'Lavado a presión para casas del área de Portland: revestimientos, patios, andadores y entradas libres de musgo, moho y mugre. Estimados gratis.',
+        'Lavado a presión para casas en Beaverton y alrededores: revestimientos, patios, andadores y entradas libres de musgo, moho y mugre. Estimados gratis.',
       h1: 'Lavado a presión',
       lede: 'Revestimientos, patios, andadores y entradas libres de musgo, moho y mugre — como trabajo propio o como el primer día de un trabajo de pintura.',
       intro: [
@@ -467,7 +467,7 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Lavado a presión en Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin y Sherwood. Con licencia y asegurados en Oregon. Se habla español.',
+        'Lavado a presión en Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin y Sherwood. Con licencia y asegurados en Oregon. Se habla español.',
     },
   },
 
@@ -476,7 +476,7 @@ export const servicePages: Record<string, Copy> = {
     en: {
       title: 'Surface Prep & Repair Before Painting | Beaverton, OR',
       description:
-        'Sanding, caulking, patching and priming for Portland-area homes. The prep work that decides whether a paint job lasts two years or ten.',
+        'Sanding, caulking, patching and priming for homes in Beaverton and the nearby Portland metro. The prep work that decides whether a paint job lasts two years or ten.',
       h1: 'Surface prep and repair',
       lede: 'Sanding, caulking, patching and priming. The part nobody sees is the part that decides how long the finish lasts.',
       intro: [
@@ -524,12 +524,12 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Prep and repair across Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin and Sherwood. Licensed and insured in Oregon. Se habla español.',
+        'Prep and repair across Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin and Sherwood. Licensed and insured in Oregon. Se habla español.',
     },
     es: {
       title: 'Preparación y Reparación Antes de Pintar | Beaverton, OR',
       description:
-        'Lijado, sellado de juntas, resane e imprimación en el área de Portland. La preparación que decide si un trabajo de pintura dura dos años o diez.',
+        'Lijado, sellado de juntas, resane e imprimación en Beaverton y alrededores. La preparación que decide si un trabajo de pintura dura dos años o diez.',
       h1: 'Preparación y reparación',
       lede: 'Lijado, sellado de juntas, resane e imprimación. Lo que nadie ve es justo lo que decide cuánto dura el acabado.',
       intro: [
@@ -577,7 +577,7 @@ export const servicePages: Record<string, Copy> = {
         },
       ],
       closing:
-        'Preparación y reparación en Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, Aloha, Tualatin y Sherwood. Con licencia y asegurados en Oregon. Se habla español.',
+        'Preparación y reparación en Beaverton, Aloha, Tigard, Hillsboro, Portland, Lake Oswego, Tualatin y Sherwood. Con licencia y asegurados en Oregon. Se habla español.',
     },
   },
 };

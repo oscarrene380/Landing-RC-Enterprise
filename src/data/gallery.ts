@@ -54,8 +54,8 @@ export type GalleryEntry = PhotoItem | PairItem;
 /** Foto principal del hero: arquitectura moderna, alto contraste. */
 export const heroImage = work7;
 export const heroAlt = {
-  en: 'Modern Portland-area home with freshly painted white siding and dark trim',
-  es: 'Casa moderna del área de Portland con revestimiento blanco recién pintado y molduras oscuras',
+  en: 'Modern Beaverton, OR home with freshly painted white siding and dark trim',
+  es: 'Casa moderna en Beaverton, OR con revestimiento blanco recién pintado y molduras oscuras',
 };
 
 /**

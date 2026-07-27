@@ -78,10 +78,25 @@ const business = {
     latitude: contact.geo.lat,
     longitude: contact.geo.lng,
   },
-  areaServed: serviceAreas.map((city) => ({
-    '@type': 'City',
-    name: `${city}, OR`,
-  })),
+  description: site.tagline[lang],
+  /** Beaverton es la sede: se declara aparte para que no quede como una ciudad
+   *  más de la lista. */
+  areaServed: [
+    {
+      '@type': 'GeoCircle',
+      name: `${contact.address.city}, ${contact.address.region} and surrounding area`,
+      geoMidpoint: {
+        '@type': 'GeoCoordinates',
+        latitude: contact.geo.lat,
+        longitude: contact.geo.lng,
+      },
+      geoRadius: '40000',
+    },
+    ...serviceAreas.map((city) => ({
+      '@type': 'City',
+      name: `${city}, ${contact.address.region}`,
+    })),
+  ],
   knowsLanguage: ['en', 'es'],
   sameAs: [social.facebook, social.homeAdvisor, social.googleMaps],
   openingHoursSpecification: [

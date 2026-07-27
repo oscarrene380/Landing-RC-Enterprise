@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import T from './T.astro';
-import { contact, hours, serviceAreas, social, mapSrc } from '../data/site';
+import { contact, hours, primaryArea, nearbyAreas, social, mapSrc } from '../data/site';
 ---
 
 <section id="area" class="section section--light area">
@@ -11,18 +11,31 @@ import { contact, hours, serviceAreas, social, mapSrc } from '../data/site';
         <T en="Where we work" es="Dónde trabajamos" />
       </p>
       <h2 class="area__title">
-        <T en="Based in Beaverton" es="Con base en Beaverton" />
+        <T en="Based in Beaverton, Oregon" es="Con base en Beaverton, Oregon" />
       </h2>
       <p class="lede">
         <T
-          en="We serve the west side of the Portland metro and everything within about 25 miles of Beaverton."
-          es="Cubrimos el lado oeste del área de Portland y todo lo que esté a unas 25 millas de Beaverton."
+          en="Our shop and crew are in Beaverton, so most jobs are a short drive away. From there we cover the nearby west-side towns and the rest of the Portland metro within about 25 miles."
+          es="Nuestro taller y nuestro equipo están en Beaverton, así que la mayoría de los trabajos quedan a pocos minutos. Desde ahí cubrimos los pueblos vecinos del lado oeste y el resto del área de Portland en unas 25 millas."
         />
       </p>
 
-      <ul class="area__cities">
-        {serviceAreas.map((city) => <li class="area__city">{city}</li>)}
-      </ul>
+      {/* Jerarquía geográfica explícita: la ciudad base se lee primero y aparte,
+          los alrededores van después como lista secundaria. */}
+      <div class="area__cities">
+        <p class="area__home">
+          <Icon name="pin" size={16} />
+          <span><T en="Home base" es="Ciudad base" /></span>
+          <strong>{primaryArea}, OR</strong>
+        </p>
+
+        <p class="area__nearby-label">
+          <T en="And nearby:" es="Y alrededores:" />
+        </p>
+        <ul class="area__chips">
+          {nearbyAreas.map((city) => <li class="area__city">{city}</li>)}
+        </ul>
+      </div>
 
       <dl class="area__facts">
         <div class="fact">
@@ -88,12 +101,60 @@ import { contact, hours, serviceAreas, social, mapSrc } from '../data/site';
   }
 
   .area__cities {
+    margin-top: 1.75rem;
+  }
+
+  /* La ciudad base: barra propia, acento coral y tipografía de display.
+     Debe ganar visualmente a los chips de alrededores sin ser un banner. */
+  .area__home {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.7rem 0.95rem;
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--coral-500);
+    border-radius: var(--radius-sm);
+    background: var(--paper-50);
+  }
+
+  .area__home :global(svg) {
+    color: var(--coral-500);
+    flex: none;
+  }
+
+  .area__home span {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--text-on-light-muted);
+  }
+
+  .area__home strong {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--text-on-light);
+  }
+
+  .area__nearby-label {
+    margin: 1.1rem 0 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-on-light-muted);
+  }
+
+  .area__chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
     list-style: none;
     padding: 0;
-    margin-top: 1.5rem;
+    margin: 0;
   }
 
   .area__city {

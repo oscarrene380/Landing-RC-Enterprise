@@ -14,11 +14,15 @@ const lang = langFromPath(Astro.url.pathname);
   <div class="container hero__inner">
     <div class="hero__copy">
       <p class="hero__eyebrow eyebrow">
-        <T en="Painting & staining · Portland metro, OR" es="Pintura y teñido · Área de Portland, OR" />
+        <Icon name="pin" size={15} class="hero__eyebrow-pin" />
+        <T
+          en="Painting & staining · Based in Beaverton, OR"
+          es="Pintura y teñido · Con base en Beaverton, OR"
+        />
       </p>
 
       <h1 class="hero__title">
-        <T en="House painting in the Portland metro," es="Pintura de casas en el área de Portland," block />
+        <T en="House painting in Beaverton," es="Pintura de casas en Beaverton," block />
         <span class="hero__title-accent">
           <T en="done right since 1998." es="bien hecha desde 1998." />
         </span>
@@ -26,8 +30,8 @@ const lang = langFromPath(Astro.url.pathname);
 
       <p class="hero__lede lede">
         <T
-          en="Interior, exterior, staining and power washing. Clean job sites, honest quotes, and a crew that has been doing this for 27 years."
-          es="Interior, exterior, teñido y lavado a presión. Obra limpia, estimados honestos y un equipo que lleva 27 años haciendo esto."
+          en="Interior, exterior, staining and power washing for Beaverton and the west side of the Portland metro. Clean job sites, honest quotes, and a crew that has been doing this for 27 years."
+          es="Interior, exterior, teñido y lavado a presión en Beaverton y el lado oeste del área de Portland. Obra limpia, estimados honestos y un equipo que lleva 27 años haciendo esto."
         />
       </p>
 
@@ -79,7 +83,7 @@ const lang = langFromPath(Astro.url.pathname);
         class="hero__img"
       />
       <figcaption class="hero__badge">
-        <T en="Recent exterior — Portland" es="Exterior reciente — Portland" />
+        <T en="Recent exterior — Beaverton, OR" es="Exterior reciente — Beaverton, OR" />
       </figcaption>
     </figure>
   </div>
@@ -115,7 +119,16 @@ const lang = langFromPath(Astro.url.pathname);
   }
 
   .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     margin-bottom: 1.1rem;
+  }
+
+  /* El pin ancla visualmente la ciudad base antes de leer el titular */
+  .hero__eyebrow-pin {
+    color: var(--coral-400);
+    flex: none;
   }
 
   .hero__title {

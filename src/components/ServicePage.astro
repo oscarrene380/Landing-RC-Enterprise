@@ -6,7 +6,7 @@
 import Icon from './Icon.astro';
 import { services, type Service } from '../data/services';
 import { servicePages } from '../data/servicePages';
-import { contact, serviceAreas } from '../data/site';
+import { contact, primaryArea, nearbyAreas } from '../data/site';
 import { href, langFromPath, routes, servicePaths, ui } from '../lib/i18n';
 
 interface Props {
@@ -33,7 +33,13 @@ const others = services.filter((s) => s.id !== service.id);
       <p class="eyebrow">
         {t.servicesEyebrow} {service.n}
       </p>
-      <h1 class="sp__title">{copy.h1}</h1>
+      {/* La ciudad va dentro del H1, no en un subtítulo: es la señal local más
+          fuerte que tiene la página y la comparten los 10 destinos. */}
+      <h1 class="sp__title">
+        {copy.h1}<span class="sp__title-city">
+          {lang === 'es' ? ' en ' : ' in '}{primaryArea}, {contact.address.region}
+        </span>
+      </h1>
       <p class="lede sp__lede">{copy.lede}</p>
 
       <div class="sp__actions">
@@ -91,7 +97,11 @@ const others = services.filter((s) => s.id !== service.id);
       <section class="sp__block reveal" aria-label={t.servingLabel}>
         <h2 class="sp__h2">{t.servingLabel}</h2>
         <ul class="cities">
-          {serviceAreas.map((city) => <li class="city">{city}, OR</li>)}
+          <li class="city city--home">
+            <Icon name="pin" size={14} />
+            {primaryArea}, {contact.address.region}
+          </li>
+          {nearbyAreas.map((city) => <li class="city">{city}, {contact.address.region}</li>)}
         </ul>
       </section>
     </div>
@@ -166,7 +176,12 @@ const others = services.filter((s) => s.id !== service.id);
     font-size: var(--step-6);
     text-transform: uppercase;
     margin: 0.6rem 0 1rem;
-    max-width: 18ch;
+    max-width: 20ch;
+  }
+
+  /* La ciudad se lee como segunda línea del titular, no como un añadido */
+  .sp__title-city {
+    color: var(--coral-500);
   }
 
   .sp__lede {
@@ -273,6 +288,20 @@ const others = services.filter((s) => s.id !== service.id);
     background: var(--paper-50);
     font-size: 0.82rem;
     font-weight: 500;
+  }
+
+  /* La ciudad base sale del gris: es donde estamos y donde queremos rankear */
+  .city--home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-color: var(--coral-500);
+    background: color-mix(in srgb, var(--coral-500) 8%, transparent);
+    font-weight: 700;
+  }
+
+  .city--home :global(svg) {
+    color: var(--coral-500);
   }
 
   .sp__cta {

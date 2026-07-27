@@ -7,8 +7,8 @@ export const site = {
   name: 'Residential Construction Enterprise, LLC',
   shortName: 'RC Enterprise',
   tagline: {
-    en: 'Residential painting in the Portland metro',
-    es: 'Pintura residencial en el área de Portland',
+    en: 'Residential painting in Beaverton, OR',
+    es: 'Pintura residencial en Beaverton, OR',
   },
   url: 'https://rcenterprisepainting.com',
   foundedYear: 1998,
@@ -57,13 +57,23 @@ export const hours = [
   { en: 'Sunday', es: 'Domingo', time: { en: 'Closed', es: 'Cerrado' } },
 ] as const;
 
-export const serviceAreas = [
-  'Portland',
-  'Beaverton',
-  'Hillsboro',
-  'Tigard',
-  'Lake Oswego',
+/**
+ * La ciudad base. El negocio está físicamente en Beaverton y ahí es donde
+ * queremos rankear primero, así que se trata aparte del resto: encabeza las
+ * listas, se destaca en el diseño y es la única que aparece en los <title>.
+ */
+export const primaryArea = 'Beaverton' as const;
+
+/** Alrededores, ordenados por cercanía real a Beaverton (no alfabéticamente). */
+export const nearbyAreas = [
   'Aloha',
+  'Tigard',
+  'Hillsboro',
+  'Portland',
+  'Lake Oswego',
   'Tualatin',
   'Sherwood',
 ] as const;
+
+/** Lista completa con Beaverton al frente. La consumen el schema y el footer. */
+export const serviceAreas = [primaryArea, ...nearbyAreas] as const;
