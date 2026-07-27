@@ -10,7 +10,7 @@ export const site = {
     en: 'Residential painting in the Portland metro',
     es: 'Pintura residencial en el área de Portland',
   },
-  url: 'https://rcenterprise.com',
+  url: 'https://rcenterprisepainting.com',
   foundedYear: 1998,
   yearsOfExperience: 27,
   ccb: 'CCB #235749',

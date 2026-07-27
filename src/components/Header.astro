@@ -4,19 +4,29 @@ import LangSwitch from './LangSwitch.astro';
 import Icon from './Icon.astro';
 import T from './T.astro';
 import { contact } from '../data/site';
+import { homeAnchor, href, langFromPath, routes, type Alternates } from '../lib/i18n';
 
+interface Props {
+  alternates: Alternates;
+}
+
+const { alternates } = Astro.props;
+const lang = langFromPath(Astro.url.pathname);
+
+/** Las anclas apuntan a la home del idioma actual: en una página de servicio
+ *  un `#services` suelto no llevaría a ninguna parte. */
 const links = [
-  { href: '#services', en: 'Services', es: 'Servicios' },
-  { href: '#work', en: 'Work', es: 'Trabajos' },
-  { href: '#reviews', en: 'Reviews', es: 'Reseñas' },
-  { href: '#area', en: 'Service area', es: 'Zona' },
-  { href: '#contact', en: 'Contact', es: 'Contacto' },
+  { href: homeAnchor('services', lang), en: 'Services', es: 'Servicios' },
+  { href: homeAnchor('work', lang), en: 'Work', es: 'Trabajos' },
+  { href: homeAnchor('reviews', lang), en: 'Reviews', es: 'Reseñas' },
+  { href: homeAnchor('area', lang), en: 'Service area', es: 'Zona' },
+  { href: href(routes.contact[lang]), en: 'Contact', es: 'Contacto' },
 ];
 ---
 
 <header class="header">
   <div class="container header__inner">
-    <a href="#top" class="header__logo" aria-label="RC Enterprise — home">
+    <a href={href(routes.home[lang])} class="header__logo" aria-label="RC Enterprise — home">
       <Wordmark size={36} />
     </a>
 
@@ -29,7 +39,7 @@ const links = [
         ))
       }
       <div class="header__nav-actions">
-        <LangSwitch />
+        <LangSwitch alternates={alternates} />
         <a href={`tel:${contact.phoneRaw}`} class="btn btn--primary btn--block">
           <Icon name="phone" size={18} />
           {contact.phone}
@@ -39,7 +49,7 @@ const links = [
 
     <div class="header__actions">
       <div class="header__lang">
-        <LangSwitch />
+        <LangSwitch alternates={alternates} />
       </div>
       <a href={`tel:${contact.phoneRaw}`} class="btn btn--primary header__call">
         <Icon name="phone" size={18} />

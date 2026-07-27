@@ -2,9 +2,11 @@
 import { Image } from 'astro:assets';
 import T from './T.astro';
 import { gallery } from '../data/gallery';
+import { langFromPath } from '../lib/i18n';
 
 /** Las dos primeras fichas se cargan de inmediato; el resto en diferido. */
 const EAGER_UNTIL = 2;
+const lang = langFromPath(Astro.url.pathname);
 ---
 
 <section id="work" class="section section--dark gallery">
@@ -35,9 +37,7 @@ const EAGER_UNTIL = 2;
               {item.kind === 'photo' ? (
                 <Image
                   src={item.src}
-                  alt={item.en.alt}
-                  data-alt-en={item.en.alt}
-                  data-alt-es={item.es.alt}
+                  alt={item[lang].alt}
                   widths={[420, 700, 1000]}
                   sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 92vw"
                   loading={loading}
@@ -49,9 +49,7 @@ const EAGER_UNTIL = 2;
                   <div class="pair__half pair__half--before">
                     <Image
                       src={item.before.src}
-                      alt={item.before.alt.en}
-                      data-alt-en={item.before.alt.en}
-                      data-alt-es={item.before.alt.es}
+                      alt={item.before.alt[lang]}
                       widths={[380, 620, 900]}
                       sizes="(min-width: 1000px) 25vw, 46vw"
                       loading={loading}
@@ -66,9 +64,7 @@ const EAGER_UNTIL = 2;
                   <div class="pair__half">
                     <Image
                       src={item.after.src}
-                      alt={item.after.alt.en}
-                      data-alt-en={item.after.alt.en}
-                      data-alt-es={item.after.alt.es}
+                      alt={item.after.alt[lang]}
                       widths={[380, 620, 900]}
                       sizes="(min-width: 1000px) 25vw, 46vw"
                       loading={loading}

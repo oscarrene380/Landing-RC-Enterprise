@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ContactPage from '../../components/ContactPage.astro';
+import { routes, ui } from '../../lib/i18n';
+import { breadcrumbs } from '../../lib/schema';
+
+const title = 'Contacto — Estimado Gratis de Pintura en Beaverton, OR';
+const description =
+  'Llama al (971) 203-1123, escríbenos por WhatsApp o manda el formulario para un estimado gratis de pintura en el área de Portland. Respondemos el mismo día.';
+
+const schema = [
+  breadcrumbs(
+    [
+      { name: ui.es.breadcrumbHome, path: routes.home.es },
+      { name: 'Contacto', path: routes.contact.es },
+    ],
+    Astro.site,
+  ),
+];
+---
+
+<Layout title={title} description={description} alternates={routes.contact} schema={schema}>
+  <ContactPage />
+</Layout>

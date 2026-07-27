@@ -1,20 +1,26 @@
 ---
 /**
- * Texto bilingüe. Emite las dos versiones en el HTML y CSS muestra la activa
- * según [data-lang] en <html>. Ventaja sobre ocultar con JS: sin parpadeo,
- * funciona sin JavaScript y ambos idiomas quedan en el HTML para SEO.
+ * Texto bilingüe. Emite SOLO el idioma de la página actual, deducido de la
+ * ruta durante el build (`/` → en, `/es/…` → es).
+ *
+ * Antes se emitían los dos idiomas y CSS ocultaba uno: cómodo, pero Google
+ * veía el mismo contenido duplicado en dos idiomas dentro de un solo
+ * documento, lo que diluye las keywords y ensucia el snippet.
  *
  * Uso: <T en="Services" es="Servicios" />
  */
+import { langFromPath } from '../lib/i18n';
+
 interface Props {
   en: string;
   es: string;
-  /** Usa <div> en vez de <span> cuando el texto es un bloque */
+  /** Fuerza un salto de línea (útil dentro de títulos). */
   block?: boolean;
 }
 
 const { en, es, block = false } = Astro.props;
-const Tag = block ? 'div' : 'span';
+const lang = langFromPath(Astro.url.pathname);
+const text = lang === 'es' ? es : en;
 ---
 
-<Tag data-t="en" lang="en">{en}</Tag><Tag data-t="es" lang="es">{es}</Tag>
+{block ? <span class="t-block">{text}</span> : text}

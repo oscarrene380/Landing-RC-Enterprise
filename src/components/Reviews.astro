@@ -3,6 +3,9 @@ import Icon from './Icon.astro';
 import T from './T.astro';
 import { reviews, ratingSummary, formatReviewDate } from '../data/reviews';
 import { social } from '../data/site';
+import { langFromPath } from '../lib/i18n';
+
+const lang = langFromPath(Astro.url.pathname);
 ---
 
 <section id="reviews" class="section reviews">
@@ -44,8 +47,9 @@ import { social } from '../data/site';
             <footer class="review__meta">
               <span class="review__name">{r.name}</span>
               <span class="review__date">
-                <span data-t="en">{formatReviewDate(r.date, 'en')}</span><span data-t="es">{formatReviewDate(r.date, 'es')}</span>
-                {' · '}{r.source}
+                {formatReviewDate(r.date, lang)}
+                {' · '}
+                {r.source}
               </span>
             </footer>
           </li>

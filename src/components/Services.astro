@@ -2,6 +2,9 @@
 import Icon from './Icon.astro';
 import T from './T.astro';
 import { services } from '../data/services';
+import { href, langFromPath, servicePaths } from '../lib/i18n';
+
+const lang = langFromPath(Astro.url.pathname);
 ---
 
 <section id="services" class="section section--light services">
@@ -30,11 +33,18 @@ import { services } from '../data/services';
               <span class="service__n">{s.n}</span>
             </div>
             <h3 class="service__name">
-              <T en={s.en.name} es={s.es.name} />
+              {/* La ficha entera es clicable, pero el enlace real está en el
+                  título: es el texto ancla que Google asocia a la página. */}
+              <a class="service__link" href={href(servicePaths(s.slug)[lang])}>
+                {s[lang].name}
+              </a>
             </h3>
             <p class="service__desc">
               <T en={s.en.desc} es={s.es.desc} />
             </p>
+            <span class="service__more" aria-hidden="true">
+              <T en="Learn more" es="Ver más" /> →
+            </span>
           </li>
         ))
       }
@@ -64,6 +74,7 @@ import { services } from '../data/services';
   }
 
   .service {
+    position: relative;
     display: flex;
     flex-direction: column;
     background: var(--paper-50);
@@ -104,10 +115,34 @@ import { services } from '../data/services';
     margin-bottom: 0.5rem;
   }
 
+  /* Extiende el área clicable a toda la ficha sin anidar un <a> gigante */
+  .service__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .service__link:focus-visible::after {
+    outline: 2px solid var(--coral-500);
+    outline-offset: 3px;
+  }
+
   .service__desc {
     font-size: var(--step--1);
     line-height: 1.65;
     color: var(--text-on-light-muted);
+  }
+
+  .service__more {
+    margin-top: auto;
+    padding-top: 1rem;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--coral-600);
   }
 
   /* El primer servicio ocupa dos columnas en pantallas anchas */

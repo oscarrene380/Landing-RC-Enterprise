@@ -4,9 +4,12 @@ import Icon from './Icon.astro';
 import T from './T.astro';
 import Wordmark from './Wordmark.astro';
 import { contact, site, social } from '../data/site';
+import { services } from '../data/services';
+import { homeAnchor, href, langFromPath, routes, servicePaths } from '../lib/i18n';
 import logo from '../assets/logo.png';
 
 const year = new Date().getFullYear();
+const lang = langFromPath(Astro.url.pathname);
 
 const logoAlt = {
   en: 'Residential Construction Enterprise LLC logo',
@@ -26,9 +29,7 @@ const logoAlt = {
       </p>
       <Image
         src={logo}
-        alt={logoAlt.en}
-        data-alt-en={logoAlt.en}
-        data-alt-es={logoAlt.es}
+        alt={logoAlt[lang]}
         width={220}
         densities={[1, 2]}
         loading="lazy"
@@ -37,14 +38,31 @@ const logoAlt = {
       />
     </div>
 
+    {/* Enlazar cada página de servicio desde el pie es lo que las saca de ser
+        huérfanas: es la señal de enlazado interno más barata que hay, y es de
+        donde Google construye los sitelinks. */}
+    <nav class="footer__col" aria-label={lang === 'es' ? 'Servicios' : 'Services'}>
+      <h2 class="footer__heading"><T en="Services" es="Servicios" /></h2>
+      <ul>
+        {
+          services.map((s) => (
+            <li>
+              <a href={href(servicePaths(s.slug)[lang])}>{s[lang].name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
     <nav class="footer__col" aria-label="Footer">
       <h2 class="footer__heading"><T en="Sections" es="Secciones" /></h2>
       <ul>
-        <li><a href="#services"><T en="Services" es="Servicios" /></a></li>
-        <li><a href="#work"><T en="Work" es="Trabajos" /></a></li>
-        <li><a href="#reviews"><T en="Reviews" es="Reseñas" /></a></li>
-        <li><a href="#area"><T en="Service area" es="Zona de servicio" /></a></li>
-        <li><a href="#contact"><T en="Free estimate" es="Estimado gratis" /></a></li>
+        <li><a href={homeAnchor('work', lang)}><T en="Work" es="Trabajos" /></a></li>
+        <li><a href={homeAnchor('reviews', lang)}><T en="Reviews" es="Reseñas" /></a></li>
+        <li><a href={homeAnchor('area', lang)}><T en="Service area" es="Zona de servicio" /></a></li>
+        <li>
+          <a href={href(routes.contact[lang])}><T en="Free estimate" es="Estimado gratis" /></a>
+        </li>
       </ul>
     </nav>
 
@@ -209,6 +227,12 @@ const logoAlt = {
   @media (min-width: 760px) {
     .footer__inner {
       grid-template-columns: 1.5fr 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .footer__inner {
+      grid-template-columns: 1.4fr 1fr 0.9fr 1fr;
     }
   }
 </style>

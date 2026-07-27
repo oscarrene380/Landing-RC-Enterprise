@@ -3,28 +3,51 @@ import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource-variable/instrument-sans';
 import '../styles/global.css';
 
+// Precargamos solo el subconjunto latino de cada fuente: son los archivos que
+// el navegador acaba pidiendo igualmente, y adelantarlos evita el salto de
+// tipografía (FOUT) que retrasa el LCP del título del hero.
+import bricolageLatin from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
+import instrumentLatin from '@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2?url';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingActions from '../components/FloatingActions.astro';
+import T from '../components/T.astro';
+
 import { site, contact, social, serviceAreas } from '../data/site';
 import { services } from '../data/services';
 import { asset } from '../lib/url';
+import { href, langFromPath, locales, ogLocale, type Alternates } from '../lib/i18n';
 
 interface Props {
   title: string;
   description: string;
+  /** Las dos rutas de esta misma página, una por idioma. Alimenta hreflang. */
+  alternates: Alternates;
   /** Ruta dentro de public/, sin el prefijo de base */
   ogImage?: string;
+  /** Nodos extra para el @graph de datos estructurados */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
 }
 
-const { title, description, ogImage = 'og.jpg' } = Astro.props;
+const { title, description, alternates, ogImage = 'og.jpg', schema = [], noindex = false } =
+  Astro.props;
 
-/** URLs públicas, con el subdirectorio de GitHub Pages ya incluido. */
+const lang = langFromPath(Astro.url.pathname);
+
+/** URLs absolutas. El canonical sale de `alternates` (no de Astro.url) para
+ *  garantizar que coincida carácter por carácter con su entrada de hreflang. */
 const origin = Astro.site ?? new URL(site.url);
-const canonical = new URL(Astro.url.pathname, origin).href;
+const abs = (path: string) => new URL(href(path), origin).href;
+
+const canonical = abs(alternates[lang]);
 const homeUrl = new URL(asset('/'), origin).href;
 const ogImageUrl = new URL(asset(ogImage), origin).href;
 
-/** Datos estructurados: ayuda a que Google muestre teléfono, horario y estrellas. */
-const jsonLd = {
-  '@context': 'https://schema.org',
+/** Datos estructurados del negocio: se repiten en todas las páginas a
+ *  propósito, para que cualquier página pueda entrar como resultado local. */
+const business = {
   '@type': 'HousePainter',
   '@id': `${homeUrl}#business`,
   name: site.name,
@@ -90,10 +113,18 @@ const jsonLd = {
     })),
   },
 };
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [business, ...schema],
+};
+
+/** El otro idioma, solo para `og:locale:alternate`. */
+const otherLang = lang === 'en' ? 'es' : 'en';
 ---
 
 <!doctype html>
-<html lang="en" data-lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -102,6 +133,17 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    {/* hreflang recíproco. Cada página se incluye a sí misma (autorreferencia),
+        que es el requisito que más se incumple y hace que Google ignore todo
+        el grupo. El x-default apunta a inglés, el idioma principal. */}
+    {
+      locales.map((l) => (
+        <link rel="alternate" hreflang={l} href={abs(alternates[l])} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={abs(alternates.en)} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.shortName} />
@@ -109,8 +151,11 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:locale:alternate" content="es_US" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.shortName} — ${site.tagline[lang]}`} />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    <meta property="og:locale:alternate" content={ogLocale[otherLang]} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImageUrl} />
 
@@ -118,19 +163,11 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
     <link rel="apple-touch-icon" href={asset('favicon.svg')} />
 
+    <link rel="preload" as="font" type="font/woff2" href={bricolageLatin} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={instrumentLatin} crossorigin />
+
     <!-- El iframe del mapa se carga en diferido; adelantamos la conexión -->
     <link rel="preconnect" href="https://maps.google.com" />
-
-    <script is:inline>
-      // Restaura el idioma antes del primer pintado para que no haya parpadeo.
-      try {
-        var stored = localStorage.getItem('rc-lang');
-        var browser = (navigator.language || 'en').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
-        var lang = stored === 'es' || stored === 'en' ? stored : browser;
-        document.documentElement.dataset.lang = lang;
-        document.documentElement.lang = lang;
-      } catch (e) {}
-    </script>
 
     <noscript>
       <style>
@@ -147,55 +184,19 @@ const jsonLd = {
 
   <body>
     <a class="skip-link" href="#main">
-      <span data-t="en">Skip to content</span><span data-t="es">Ir al contenido</span>
+      <T en="Skip to content" es="Ir al contenido" />
     </a>
 
-    <slot />
+    <Header alternates={alternates} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+    <FloatingActions />
 
     <script>
-      // --- Idioma -----------------------------------------------------------
-      const root = document.documentElement;
-
-      function setLang(lang: string) {
-        root.dataset.lang = lang;
-        root.lang = lang;
-        try {
-          localStorage.setItem('rc-lang', lang);
-        } catch {
-          /* modo privado */
-        }
-        document.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
-      }
-
-      document.querySelectorAll<HTMLButtonElement>('[data-lang-btn]').forEach((btn) => {
-        btn.addEventListener('click', () => setLang(btn.dataset.langBtn!));
-      });
-
-      // Placeholders de formulario: no se pueden duplicar como el texto
-      function syncPlaceholders() {
-        const lang = root.dataset.lang === 'es' ? 'es' : 'en';
-        document
-          .querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-ph-en]')
-          .forEach((el) => {
-            el.placeholder = el.dataset[lang === 'es' ? 'phEs' : 'phEn'] ?? '';
-          });
-      }
-      // Textos alternativos de imágenes: tampoco se pueden duplicar
-      function syncAltText() {
-        const lang = root.dataset.lang === 'es' ? 'es' : 'en';
-        document.querySelectorAll<HTMLImageElement>('[data-alt-es]').forEach((img) => {
-          img.alt = img.dataset[lang === 'es' ? 'altEs' : 'altEn'] ?? img.alt;
-        });
-      }
-
-      function syncLangAttrs() {
-        syncPlaceholders();
-        syncAltText();
-      }
-
-      document.addEventListener('langchange', syncLangAttrs);
-      syncLangAttrs();
-
       // --- Revelado al hacer scroll ----------------------------------------
       const reveals = document.querySelectorAll('.reveal');
       if (reveals.length && 'IntersectionObserver' in window) {

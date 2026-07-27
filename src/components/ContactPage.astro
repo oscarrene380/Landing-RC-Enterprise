@@ -1,0 +1,97 @@
+---
+/** Cuerpo de `/contact/` y `/es/contacto/`. */
+import Icon from './Icon.astro';
+import T from './T.astro';
+import Contact from './Contact.astro';
+import ServiceArea from './ServiceArea.astro';
+import { contact } from '../data/site';
+import { href, langFromPath, routes, ui } from '../lib/i18n';
+
+const lang = langFromPath(Astro.url.pathname);
+const t = ui[lang];
+---
+
+<header class="cp__hero">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href={href(routes.home[lang])}>{t.breadcrumbHome}</a>
+      <span aria-hidden="true">/</span>
+      <span><T en="Contact" es="Contacto" /></span>
+    </nav>
+
+    <p class="eyebrow">
+      <T en="Free estimate · No obligation" es="Estimado gratis · Sin compromiso" />
+    </p>
+    <h1 class="cp__title">
+      <T en="Contact RC Enterprise" es="Contacta a RC Enterprise" />
+    </h1>
+    <p class="lede cp__lede">
+      <T
+        en="Call, message us on WhatsApp, or send the form below. We answer the same day, Monday through Saturday, in English or Spanish."
+        es="Llama, escríbenos por WhatsApp o manda el formulario de abajo. Contestamos el mismo día, de lunes a sábado, en inglés o español."
+      />
+    </p>
+
+    <div class="cp__actions">
+      <a href={`tel:${contact.phoneRaw}`} class="btn btn--primary">
+        <Icon name="phone" size={19} />
+        {contact.phone}
+      </a>
+      <a
+        href={`https://wa.me/${contact.whatsapp}`}
+        class="btn btn--ghost"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="whatsapp" size={19} />
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<Contact />
+<ServiceArea />
+
+<style>
+  .cp__hero {
+    background:
+      radial-gradient(120% 90% at 15% 0%, var(--ink-700), transparent 60%),
+      var(--ink-800);
+    padding-block: clamp(2.25rem, 6vw, 4.5rem);
+    color: var(--text-on-dark);
+  }
+
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-on-dark-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .crumbs a:hover {
+    color: var(--text-on-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cp__title {
+    font-size: var(--step-6);
+    text-transform: uppercase;
+    margin: 0.6rem 0 1rem;
+    max-width: 16ch;
+  }
+
+  .cp__lede {
+    max-width: 58ch;
+  }
+
+  .cp__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 2rem;
+  }
+</style>

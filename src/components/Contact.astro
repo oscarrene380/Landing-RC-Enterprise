@@ -3,6 +3,27 @@ import Icon from './Icon.astro';
 import T from './T.astro';
 import { contact } from '../data/site';
 import { services } from '../data/services';
+import { langFromPath } from '../lib/i18n';
+
+const lang = langFromPath(Astro.url.pathname);
+
+/** Textos que no pueden ir dentro de <T>: atributos y contenido de <option>. */
+const ph = {
+  en: {
+    name: 'Jane Doe',
+    phone: '(503) 555-0123',
+    notes: 'Two-story house, exterior, about 2,000 sq ft…',
+    choose: 'Choose a service',
+    other: 'Something else',
+  },
+  es: {
+    name: 'María Pérez',
+    phone: '(503) 555-0123',
+    notes: 'Casa de dos pisos, exterior, unos 2,000 pies²…',
+    choose: 'Elige un servicio',
+    other: 'Otra cosa',
+  },
+}[lang];
 ---
 
 <section id="contact" class="section contact">
@@ -69,8 +90,7 @@ import { services } from '../data/services';
           type="text"
           required
           autocomplete="name"
-          data-ph-en="Jane Doe"
-          data-ph-es="María Pérez"
+          placeholder={ph.name}
         />
       </div>
 
@@ -86,8 +106,7 @@ import { services } from '../data/services';
           required
           autocomplete="tel"
           inputmode="tel"
-          data-ph-en="(503) 555-0123"
-          data-ph-es="(503) 555-0123"
+          placeholder={ph.phone}
         />
       </div>
 
@@ -96,17 +115,13 @@ import { services } from '../data/services';
           <T en="What do you need?" es="¿Qué necesitas?" />
         </label>
         <select id="f-service" name="service">
-          <option value="" data-en="Choose a service" data-es="Elige un servicio"
-            >Choose a service</option
-          >
+          <option value="">{ph.choose}</option>
           {
             services.map((s) => (
-              <option value={s.en.name} data-es={s.es.name} data-en={s.en.name}>
-                {s.en.name}
-              </option>
+              <option value={s[lang].name}>{s[lang].name}</option>
             ))
           }
-          <option value="Other" data-en="Something else" data-es="Otra cosa">Something else</option>
+          <option value={ph.other}>{ph.other}</option>
         </select>
       </div>
 
@@ -118,8 +133,7 @@ import { services } from '../data/services';
           id="f-notes"
           name="notes"
           rows="3"
-          data-ph-en="Two-story house, exterior, about 2,000 sq ft…"
-          data-ph-es="Casa de dos pisos, exterior, unos 2,000 pies²…"></textarea>
+          placeholder={ph.notes}></textarea>
       </div>
 
       <button type="submit" class="btn btn--primary btn--block">
@@ -322,19 +336,10 @@ import { services } from '../data/services';
     },
   };
 
+  // El idioma ya viene resuelto en el HTML: cada URL sirve uno solo.
   function currentLang(): 'en' | 'es' {
-    return document.documentElement.dataset.lang === 'es' ? 'es' : 'en';
+    return document.documentElement.lang === 'es' ? 'es' : 'en';
   }
-
-  // Las <option> no admiten dos idiomas a la vez: se traducen aquí
-  function syncOptions() {
-    const lang = currentLang();
-    document.querySelectorAll<HTMLOptionElement>('option[data-en]').forEach((opt) => {
-      opt.textContent = opt.dataset[lang] ?? opt.textContent;
-    });
-  }
-  document.addEventListener('langchange', syncOptions);
-  syncOptions();
 
   form?.addEventListener('submit', (event) => {
     event.preventDefault();

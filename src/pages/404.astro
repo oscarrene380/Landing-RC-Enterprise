@@ -1,0 +1,100 @@
+---
+/**
+ * 404 propio. Sin él GitHub Pages devuelve su página genérica y Google la
+ * puede interpretar como soft-404. Va con noindex.
+ */
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+import { contact } from '../data/site';
+import { href, routes, servicePaths, ui } from '../lib/i18n';
+
+const t = ui.en;
+---
+
+<Layout
+  title="Page not found | RC Enterprise"
+  description="That page does not exist. Find our painting services or get in touch for a free estimate."
+  alternates={routes.home}
+  noindex
+>
+  <section class="nf">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1 class="nf__title">{t.notFoundTitle}</h1>
+      <p class="lede nf__lede">{t.notFoundText}</p>
+
+      <div class="nf__actions">
+        <a href={href(routes.home.en)} class="btn btn--primary">{t.backHome}</a>
+        <a href={`tel:${contact.phoneRaw}`} class="btn btn--ghost">
+          <Icon name="phone" size={19} />
+          {contact.phone}
+        </a>
+      </div>
+
+      <h2 class="nf__h2">{t.allServices}</h2>
+      <ul class="nf__links">
+        {
+          services.map((s) => (
+            <li>
+              <a href={href(servicePaths(s.slug).en)}>{s.en.name}</a>
+            </li>
+          ))
+        }
+        <li><a href={href(routes.contact.en)}>Contact</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf {
+    background:
+      radial-gradient(120% 90% at 15% 0%, var(--ink-700), transparent 60%),
+      var(--ink-800);
+    color: var(--text-on-dark);
+    padding-block: clamp(3rem, 9vw, 6rem);
+  }
+
+  .nf__title {
+    font-size: var(--step-6);
+    text-transform: uppercase;
+    margin: 0.6rem 0 1rem;
+  }
+
+  .nf__lede {
+    max-width: 48ch;
+  }
+
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin: 2rem 0 3rem;
+  }
+
+  .nf__h2 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-300);
+    margin-bottom: 0.9rem;
+  }
+
+  .nf__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 1.25rem;
+    list-style: none;
+    padding: 0;
+    font-size: var(--step--1);
+    color: var(--text-on-dark-muted);
+  }
+
+  .nf__links a:hover {
+    color: var(--text-on-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

@@ -1,10 +1,32 @@
 ---
-/** Selector de idioma. El estado real vive en [data-lang] del <html>. */
+/**
+ * Selector de idioma. Ahora son enlaces reales a la otra URL, no botones:
+ * Google los sigue, y el usuario puede compartir o marcar la versión que ve.
+ */
+import { href, langFromPath, locales, type Alternates } from '../lib/i18n';
+
+interface Props {
+  alternates: Alternates;
+}
+
+const { alternates } = Astro.props;
+const current = langFromPath(Astro.url.pathname);
 ---
 
 <div class="lang" role="group" aria-label="Language / Idioma">
-  <button type="button" class="lang__btn" data-lang-btn="en" lang="en">EN</button>
-  <button type="button" class="lang__btn" data-lang-btn="es" lang="es">ES</button>
+  {
+    locales.map((l) => (
+      <a
+        class:list={['lang__btn', { 'is-current': l === current }]}
+        href={href(alternates[l])}
+        hreflang={l}
+        lang={l}
+        aria-current={l === current ? 'true' : undefined}
+      >
+        {l.toUpperCase()}
+      </a>
+    ))
+  }
 </div>
 
 <style>
@@ -36,8 +58,7 @@
     opacity: 1;
   }
 
-  :global([data-lang='en']) .lang__btn[data-lang-btn='en'],
-  :global([data-lang='es']) .lang__btn[data-lang-btn='es'] {
+  .lang__btn.is-current {
     background: var(--paper-50);
     color: var(--ink-900);
     opacity: 1;

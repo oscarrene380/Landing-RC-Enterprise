@@ -306,13 +306,12 @@ p {
 }
 
 /* --------------------------------------------------------------------------
-   Cambio de idioma — sin JS el HTML ya trae ambos idiomas y CSS oculta uno.
-   Evita el parpadeo de contenido que provoca ocultar por JavaScript.
+   Idioma — cada URL emite un solo idioma (ver src/lib/i18n.ts). Lo único que
+   queda aquí es el salto de línea forzado de <T block />.
    -------------------------------------------------------------------------- */
 
-[data-lang='en'] [data-t='es'],
-[data-lang='es'] [data-t='en'] {
-  display: none;
+.t-block {
+  display: block;
 }
 
 /* --------------------------------------------------------------------------

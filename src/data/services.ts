@@ -1,14 +1,20 @@
 export interface Service {
+  /** Clave estable. No cambia aunque cambie el slug. */
+  id: string;
   n: string;
   icon: string;
+  /** Slug por idioma. La página vive en `/{en}/` y `/es/{es}/`. */
+  slug: { en: string; es: string };
   en: { name: string; desc: string };
   es: { name: string; desc: string };
 }
 
 export const services: Service[] = [
   {
+    id: 'interior-painting',
     n: '01',
     icon: 'roller',
+    slug: { en: 'interior-painting', es: 'pintura-interior' },
     en: {
       name: 'Interior painting',
       desc: 'Walls, ceilings, trim and cabinets finished clean and crisp — furniture covered, floors protected, site left spotless.',
@@ -19,8 +25,10 @@ export const services: Service[] = [
     },
   },
   {
+    id: 'exterior-painting',
     n: '02',
     icon: 'house',
+    slug: { en: 'exterior-painting', es: 'pintura-exterior' },
     en: {
       name: 'Exterior painting',
       desc: 'Weather-ready coatings built for Oregon rain. Siding, soffits, doors and garages that hold up season after season.',
@@ -31,8 +39,10 @@ export const services: Service[] = [
     },
   },
   {
+    id: 'staining-sealing',
     n: '03',
     icon: 'brush',
+    slug: { en: 'deck-staining-and-sealing', es: 'tenido-y-sellado' },
     en: {
       name: 'Staining & sealing',
       desc: 'Decks, fences and doors sealed against moisture and UV so the grain stays warm instead of going gray.',
@@ -43,8 +53,10 @@ export const services: Service[] = [
     },
   },
   {
+    id: 'power-washing',
     n: '04',
     icon: 'water',
+    slug: { en: 'power-washing', es: 'lavado-a-presion' },
     en: {
       name: 'Power washing',
       desc: 'Siding, patios, walkways and driveways stripped of moss, mildew and grime before a single drop of paint.',
@@ -55,8 +67,10 @@ export const services: Service[] = [
     },
   },
   {
+    id: 'prep-repair',
     n: '05',
     icon: 'tools',
+    slug: { en: 'surface-prep-and-repair', es: 'preparacion-y-reparacion' },
     en: {
       name: 'Prep & repair',
       desc: 'Sanding, caulking, patching and priming. The part nobody sees is the part that makes the finish last.',

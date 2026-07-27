@@ -1,10 +1,9 @@
 /**
  * Rutas de archivos que viven en `public/`.
  *
- * En GitHub Pages el sitio no se sirve en la raíz del dominio sino en
- * `/Landing-RC-Enterprise/`, así que una ruta escrita a mano como `/og.jpg`
- * apuntaría al lugar equivocado. Astro expone ese prefijo en `BASE_URL`;
- * este helper lo antepone.
+ * Antepone `BASE_URL` a la ruta. Con dominio propio `BASE_URL` es `/`, así que
+ * el helper es transparente; se mantiene por si el sitio vuelve a servirse en
+ * un subdirectorio (p. ej. una preview en github.io/<repo>/).
  *
  * Las imágenes de `src/assets/` NO lo necesitan: el componente <Image />
  * de Astro ya resuelve la ruta con el base incluido.
