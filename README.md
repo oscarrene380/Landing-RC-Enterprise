@@ -147,7 +147,7 @@ helper `asset()` de `src/lib/url.ts` para que ese prefijo se aplique solo.
 ## Pendiente de confirmar
 
 - **Correo**: `rcenterprisellc.info@gmail.com` es una suposición. Confírmalo en `src/data/site.ts`.
-- **Número CCB**: se leyó `233749` del logo, que está a baja resolución.
+- **Número CCB**: se leyó `235749` del logo, que está a baja resolución.
   Verifícalo en el [buscador de licencias de Oregon CCB](https://search.ccb.state.or.us/search/).
 - **Dominio**: `rcenterprise.com` es un marcador de posición en `astro.config.mjs`.
 

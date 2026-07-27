@@ -13,7 +13,7 @@ export const site = {
   url: 'https://rcenterprise.com',
   foundedYear: 1998,
   yearsOfExperience: 27,
-  ccb: 'CCB #233749',
+  ccb: 'CCB #235749',
 } as const;
 
 export const contact = {
@@ -36,8 +36,13 @@ export const social = {
   googleMaps: 'https://maps.app.goo.gl/Sk46LNEXxb4EggLh6',
   /** Abre directamente el cuadro para escribir una reseña en Google */
   googleReview: 'https://search.google.com/local/writereview?placeid=ChIJ--N1e7sNlVQRGVRygt82njg',
-  homeAdvisor:
-    'https://www.homeadvisor.com/rated.RESIDENTIALCONSTRUCTION.115197041.html',
+  homeAdvisor: 'https://www.homeadvisor.com/rated.RESIDENTIALCONSTRUCTION.115197041.html',
+  /**
+   * Buscador oficial de licencias de la Oregon Construction Contractors Board.
+   * Es una app con renderizado por JavaScript y no admite enlace directo a una
+   * licencia, así que lleva al buscador: el cliente pega el número de CCB.
+   */
+  ccbSearch: 'https://search.ccb.state.or.us/search/',
 } as const;
 
 export const mapEmbed =

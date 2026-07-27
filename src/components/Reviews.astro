@@ -19,7 +19,7 @@ import { social } from '../data/site';
 
       <div class="reviews__score">
         <span class="reviews__stars" aria-hidden="true">
-          {Array.from({ length: 5 }).map(() => <Icon name="star" size={20} />)}
+          {Array.from({ length: 5 }).map(() => <Icon name="star" size={20} filled />)}
         </span>
         <p class="reviews__score-text">
           <strong>{ratingSummary.value.toFixed(1)}</strong>
@@ -36,7 +36,7 @@ import { social } from '../data/site';
         reviews.map((r, i) => (
           <li class:list={['review', 'reveal', { 'review--lead': i === 0 }]} style={`transition-delay:${i * 80}ms`}>
             <span class="review__stars" aria-label={`${r.rating} / 5`}>
-              {Array.from({ length: r.rating }).map(() => <Icon name="star" size={16} />)}
+              {Array.from({ length: r.rating }).map(() => <Icon name="star" size={16} filled />)}
             </span>
             <blockquote class="review__quote">
               <T en={r.en} es={r.es} />
@@ -120,7 +120,6 @@ import { social } from '../data/site';
     display: inline-flex;
     gap: 2px;
     color: var(--coral-400);
-    fill: currentColor;
   }
 
   .reviews__score-text {

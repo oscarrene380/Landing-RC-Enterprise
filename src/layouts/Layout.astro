@@ -34,6 +34,13 @@ const jsonLd = {
   email: contact.email,
   image: ogImageUrl,
   priceRange: '$$',
+  // Licencia estatal como dato estructurado: refuerza la confianza en buscadores
+  identifier: {
+    '@type': 'PropertyValue',
+    name: 'Oregon CCB license',
+    value: site.ccb.replace(/\D/g, ''),
+    url: social.ccbSearch,
+  },
   foundingDate: String(site.foundedYear),
   address: {
     '@type': 'PostalAddress',

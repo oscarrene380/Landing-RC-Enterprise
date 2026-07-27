@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import T from './T.astro';
-import { contact, site } from '../data/site';
+import { contact, site, social } from '../data/site';
 import { heroImage, heroAlt } from '../data/gallery';
 import { ratingSummary } from '../data/reviews';
 ---
@@ -41,14 +41,29 @@ import { ratingSummary } from '../data/reviews';
 
       <p class="hero__rating">
         <span class="hero__stars" aria-hidden="true">
-          {Array.from({ length: 5 }).map(() => <Icon name="star" size={17} />)}
+          {Array.from({ length: 5 }).map(() => <Icon name="star" size={17} filled />)}
         </span>
         <span>
           <strong>{ratingSummary.value.toFixed(1)}</strong>
           <T
-            en={` · ${ratingSummary.count} verified reviews · ${site.ccb}`}
-            es={` · ${ratingSummary.count} reseñas verificadas · ${site.ccb}`}
+            en={` · ${ratingSummary.count} verified reviews · `}
+            es={` · ${ratingSummary.count} reseñas verificadas · `}
           />
+          <a
+            href={social.ccbSearch}
+            class="hero__ccb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {site.ccb}
+            <span class="sr-only">
+              <T
+                en=" — verify this license on the Oregon CCB search (opens in a new tab)"
+                es=" — verifica esta licencia en el buscador de la Oregon CCB (abre en pestaña nueva)"
+              />
+            </span>
+            <Icon name="arrowUpRight" size={13} class="hero__ccb-icon" />
+          </a>
         </span>
       </p>
     </div>
@@ -143,7 +158,35 @@ import { ratingSummary } from '../data/reviews';
     display: inline-flex;
     gap: 2px;
     color: var(--coral-400);
-    fill: currentColor;
+  }
+
+  /* La licencia es un dato verificable: se marca como enlace sin gritar */
+  .hero__ccb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+    color: var(--text-on-dark);
+    text-decoration: underline;
+    text-decoration-color: var(--border-dark-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+    transition:
+      color var(--dur) var(--ease-out),
+      text-decoration-color var(--dur) var(--ease-out);
+  }
+
+  .hero__ccb:hover {
+    color: var(--teal-300);
+    text-decoration-color: currentColor;
+  }
+
+  .hero__ccb-icon {
+    opacity: 0.6;
+  }
+
+  .hero__ccb:hover .hero__ccb-icon {
+    opacity: 1;
   }
 
   .hero__media {

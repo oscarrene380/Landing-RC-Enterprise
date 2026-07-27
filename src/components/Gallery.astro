@@ -2,6 +2,9 @@
 import { Image } from 'astro:assets';
 import T from './T.astro';
 import { gallery } from '../data/gallery';
+
+/** Las dos primeras fichas se cargan de inmediato; el resto en diferido. */
+const EAGER_UNTIL = 2;
 ---
 
 <section id="work" class="section section--dark gallery">
@@ -15,32 +18,76 @@ import { gallery } from '../data/gallery';
       </h2>
       <p class="lede">
         <T
-          en="Every photo below is our own crew's work around Portland, Beaverton and Hillsboro. No stock images."
-          es="Cada foto de abajo es trabajo de nuestro propio equipo en Portland, Beaverton y Hillsboro. Nada de imágenes de banco."
+          en="Every photo is our own crew's work around Portland, Beaverton and Hillsboro — including a couple of before-and-afters. No stock images."
+          es="Cada foto es trabajo de nuestro propio equipo en Portland, Beaverton y Hillsboro, incluidos un par de antes y después. Nada de imágenes de banco."
         />
       </p>
     </header>
 
     <ul class="gallery__grid">
       {
-        gallery.map((item, i) => (
-          <li class:list={['shot', 'reveal', { 'shot--wide': item.wide }]}>
-            <Image
-              src={item.src}
-              alt={item.en.alt}
-              data-alt-en={item.en.alt}
-              data-alt-es={item.es.alt}
-              widths={[420, 700, 1000]}
-              sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 92vw"
-              loading={i < 2 ? 'eager' : 'lazy'}
-              decoding="async"
-              class="shot__img"
-            />
-            <span class="shot__caption">
-              <T en={item.en.title} es={item.es.title} />
-            </span>
-          </li>
-        ))
+        gallery.map((item, i) => {
+          const loading = i < EAGER_UNTIL ? 'eager' : 'lazy';
+          const span = item.span ?? 'normal';
+
+          return (
+            <li class:list={['shot', 'reveal', `shot--${span}`, `shot--${item.kind}`]}>
+              {item.kind === 'photo' ? (
+                <Image
+                  src={item.src}
+                  alt={item.en.alt}
+                  data-alt-en={item.en.alt}
+                  data-alt-es={item.es.alt}
+                  widths={[420, 700, 1000]}
+                  sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 92vw"
+                  loading={loading}
+                  decoding="async"
+                  class="shot__img"
+                />
+              ) : (
+                <div class="pair">
+                  <div class="pair__half pair__half--before">
+                    <Image
+                      src={item.before.src}
+                      alt={item.before.alt.en}
+                      data-alt-en={item.before.alt.en}
+                      data-alt-es={item.before.alt.es}
+                      widths={[380, 620, 900]}
+                      sizes="(min-width: 1000px) 25vw, 46vw"
+                      loading={loading}
+                      decoding="async"
+                      class="shot__img"
+                    />
+                    <span class="pair__tag pair__tag--before">
+                      <T en="Before" es="Antes" />
+                    </span>
+                  </div>
+
+                  <div class="pair__half">
+                    <Image
+                      src={item.after.src}
+                      alt={item.after.alt.en}
+                      data-alt-en={item.after.alt.en}
+                      data-alt-es={item.after.alt.es}
+                      widths={[380, 620, 900]}
+                      sizes="(min-width: 1000px) 25vw, 46vw"
+                      loading={loading}
+                      decoding="async"
+                      class="shot__img"
+                    />
+                    <span class="pair__tag pair__tag--after">
+                      <T en="After" es="Después" />
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              <span class="shot__caption">
+                <T en={item.en.title} es={item.es.title} />
+              </span>
+            </li>
+          );
+        })
       }
     </ul>
   </div>
@@ -82,7 +129,7 @@ import { gallery } from '../data/gallery';
     transition: scale 600ms var(--ease-out);
   }
 
-  .shot:hover .shot__img {
+  .shot--photo:hover .shot__img {
     scale: 1.045;
   }
 
@@ -97,7 +144,58 @@ import { gallery } from '../data/gallery';
     text-transform: uppercase;
     color: #fff;
     background: linear-gradient(to top, rgb(6 12 17 / 0.88), transparent);
+    pointer-events: none;
   }
+
+  /* --- Ficha doble antes/después ------------------------------------- */
+
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* La ranura deja ver el fondo y separa las dos tomas sin añadir peso */
+    gap: 3px;
+    background: var(--ink-900);
+  }
+
+  .pair__half {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* La toma de "antes" va un punto más apagada: la mirada va al resultado */
+  .pair__half--before .shot__img {
+    filter: saturate(0.78);
+  }
+
+  .pair__half .shot__img {
+    aspect-ratio: 1 / 1;
+  }
+
+  .pair__tag {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.3rem 0.55rem;
+    border-radius: 6px;
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .pair__tag--before {
+    background: color-mix(in srgb, var(--ink-900) 84%, transparent);
+    color: var(--paper-100);
+  }
+
+  .pair__tag--after {
+    background: var(--coral-500);
+    color: #fff7f5;
+  }
+
+  /* --- Retícula ------------------------------------------------------- */
 
   @media (min-width: 640px) {
     .gallery__grid {
@@ -107,10 +205,14 @@ import { gallery } from '../data/gallery';
     .shot {
       grid-column: span 3;
     }
+
+    .pair__half .shot__img {
+      aspect-ratio: 4 / 3;
+    }
   }
 
   @media (min-width: 1000px) {
-    .shot {
+    .shot--normal {
       grid-column: span 2;
     }
 
@@ -118,7 +220,14 @@ import { gallery } from '../data/gallery';
       grid-column: span 4;
     }
 
-    .shot--wide .shot__img {
+    .shot--full {
+      grid-column: span 6;
+    }
+
+    /* Una foto suelta ancha se recorta a panorámica; una ficha doble no,
+       porque cada mitad ya tiene su propia proporción. */
+    .shot--wide.shot--photo .shot__img,
+    .shot--full.shot--photo .shot__img {
       aspect-ratio: 16 / 9;
     }
   }

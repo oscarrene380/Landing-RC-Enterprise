@@ -34,7 +34,8 @@ const waText = encodeURIComponent('Hi! I would like a free estimate. / ¡Hola! Q
     aria-label={`Call ${contact.phone}`}
     title={contact.phone}
   >
-    <Icon name="phone" size={22} />
+    <!-- Relleno para igualar el peso óptico de los dos glifos de marca -->
+    <Icon name="phone" size={22} filled />
   </a>
 </div>
 
@@ -81,9 +82,11 @@ const waText = encodeURIComponent('Hi! I would like a free estimate. / ¡Hola! Q
     filter: brightness(1.08);
   }
 
+  /* Colores oficiales de cada marca: el reconocimiento instantáneo
+     vale más que forzarlos dentro de la paleta del sitio. */
   .fab__btn--wa {
     background: #25d366;
-    color: #04331a;
+    color: #fff;
     order: -1;
   }
 

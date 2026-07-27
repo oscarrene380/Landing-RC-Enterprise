@@ -1,11 +1,17 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import T from './T.astro';
 import Wordmark from './Wordmark.astro';
 import { contact, site, social } from '../data/site';
-import { asset } from '../lib/url';
+import logo from '../assets/logo.png';
 
 const year = new Date().getFullYear();
+
+const logoAlt = {
+  en: 'Residential Construction Enterprise LLC logo',
+  es: 'Logotipo de Residential Construction Enterprise LLC',
+};
 ---
 
 <footer class="footer">
@@ -18,15 +24,15 @@ const year = new Date().getFullYear();
           es="Pintura residencial, teñido y lavado a presión en el área de Portland desde 1998."
         />
       </p>
-      <img
-        src={asset('img/logo.jpg')}
-        width="150"
-        height="83"
+      <Image
+        src={logo}
+        alt={logoAlt.en}
+        data-alt-en={logoAlt.en}
+        data-alt-es={logoAlt.es}
+        width={220}
+        densities={[1, 2]}
         loading="lazy"
         decoding="async"
-        alt="Original Residential Construction Enterprise business card"
-        data-alt-en="Original Residential Construction Enterprise business card"
-        data-alt-es="Tarjeta de presentación original de Residential Construction Enterprise"
         class="footer__card"
       />
     </div>
@@ -86,7 +92,18 @@ const year = new Date().getFullYear();
 
   <div class="container footer__legal">
     <p>© {year} {site.name}</p>
-    <p>{site.ccb} · <T en="Licensed & insured" es="Con licencia y asegurado" /></p>
+    <p>
+      <a href={social.ccbSearch} class="footer__ccb" target="_blank" rel="noopener noreferrer">
+        {site.ccb}
+        <span class="sr-only">
+          <T
+            en=" — verify on the Oregon CCB license search (opens in a new tab)"
+            es=" — verificar en el buscador de licencias de la Oregon CCB (abre en pestaña nueva)"
+          />
+        </span>
+      </a>
+      · <T en="Licensed & insured" es="Con licencia y asegurado" />
+    </p>
   </div>
 </footer>
 
@@ -110,12 +127,11 @@ const year = new Date().getFullYear();
   }
 
   .footer__card {
-    width: 150px;
+    width: 220px;
     height: auto;
     margin-top: 1.25rem;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-dark);
-    opacity: 0.85;
   }
 
   .footer__heading {
@@ -165,6 +181,17 @@ const year = new Date().getFullYear();
   .footer__social-btn:hover {
     border-color: var(--teal-300);
     background: rgb(255 255 255 / 0.05);
+  }
+
+  .footer__ccb {
+    text-decoration: underline;
+    text-decoration-color: var(--border-dark-strong);
+    text-underline-offset: 3px;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .footer__ccb:hover {
+    color: var(--teal-300);
   }
 
   .footer__legal {
