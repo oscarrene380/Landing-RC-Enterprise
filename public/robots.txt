@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://oscarrene380.github.io/Landing-RC-Enterprise/sitemap-index.xml
+Sitemap: https://rcenterprisepainting.com/sitemap-index.xml
