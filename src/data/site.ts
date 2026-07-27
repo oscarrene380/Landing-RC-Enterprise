@@ -21,14 +21,28 @@ export const contact = {
   phoneRaw: '+19712031123',
   whatsapp: '19712031123',
   email: 'rcenterprisellc.info@gmail.com',
+  /**
+   * El negocio opera desde un domicilio particular, sin local abierto al
+   * público: para Google es un "service-area business". En ese caso la calle
+   * NO se publica —ni en la web ni en el perfil de Google— porque publicarla
+   * es motivo de suspensión de la ficha. Por eso aquí solo vive la ciudad, el
+   * estado y el código postal, que es exactamente lo que se muestra y lo que
+   * va al schema. La calle exacta se gestiona en el perfil de Google (oculta)
+   * y en la licencia CCB; no hace falta en este repositorio, que es público.
+   */
   address: {
-    street: '2827 SW Tranquility Terrace',
     city: 'Beaverton',
     region: 'OR',
-    postalCode: '97006',
+    postalCode: '97008',
     country: 'US',
   },
-  geo: { lat: 45.4757167, lng: -122.8145236 },
+  /**
+   * Centro de Beaverton, no el domicilio. Alimenta el mapa y el GeoCircle del
+   * schema: queremos señalar la ciudad, no marcar la casa con un pin.
+   */
+  geo: { lat: 45.4871, lng: -122.8037 },
+  /** Radio de cobertura declarado, en millas. Se usa en el texto y el schema. */
+  serviceRadiusMiles: 25,
 } as const;
 
 export const social = {
@@ -45,11 +59,12 @@ export const social = {
   ccbSearch: 'https://search.ccb.state.or.us/search/',
 } as const;
 
-export const mapEmbed =
-  'https://www.google.com/maps/embed/v1/place?key=&q=Residential+Construction+Enterprise+llc,Beaverton,OR';
-
-/** Iframe sin API key: funciona igual y no requiere facturación de Google Cloud. */
-export const mapSrc = `https://maps.google.com/maps?q=${contact.geo.lat},${contact.geo.lng}&z=14&output=embed`;
+/**
+ * Iframe sin API key: funciona igual y no requiere facturación de Google Cloud.
+ * Encuadra la ciudad entera en vez de poner un pin en unas coordenadas: el mapa
+ * ilustra el área que cubrimos, no dónde vive nadie.
+ */
+export const mapSrc = `https://maps.google.com/maps?q=${contact.address.city},${contact.address.region}&z=11&output=embed`;
 
 export const hours = [
   { en: 'Monday – Friday', es: 'Lunes a viernes', time: '9:00 – 17:00' },

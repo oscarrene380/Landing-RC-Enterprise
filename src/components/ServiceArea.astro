@@ -15,8 +15,8 @@ import { contact, hours, primaryArea, nearbyAreas, social, mapSrc } from '../dat
       </h2>
       <p class="lede">
         <T
-          en="Our shop and crew are in Beaverton, so most jobs are a short drive away. From there we cover the nearby west-side towns and the rest of the Portland metro within about 25 miles."
-          es="Nuestro taller y nuestro equipo están en Beaverton, así que la mayoría de los trabajos quedan a pocos minutos. Desde ahí cubrimos los pueblos vecinos del lado oeste y el resto del área de Portland en unas 25 millas."
+          en="We are based in Beaverton and work out of it, so most jobs are a short drive away. From there we cover the nearby west-side towns and the rest of the Portland metro within about 25 miles."
+          es="Tenemos base en Beaverton y trabajamos desde aquí, así que la mayoría de los trabajos quedan a pocos minutos. Desde ahí cubrimos los pueblos vecinos del lado oeste y el resto del área de Portland en unas 25 millas."
         />
       </p>
 
@@ -38,12 +38,19 @@ import { contact, hours, primaryArea, nearbyAreas, social, mapSrc } from '../dat
       </div>
 
       <dl class="area__facts">
+        {/* No hay local abierto al público: se anuncia el área de servicio, no
+            una calle. Es lo que Google espera de un service-area business y
+            evita publicar un domicilio particular. */}
         <div class="fact">
-          <dt><Icon name="pin" size={18} /><T en="Address" es="Dirección" /></dt>
+          <dt><Icon name="pin" size={18} /><T en="Service area" es="Área de servicio" /></dt>
           <dd>
+            <T
+              en={`${contact.address.city}, ${contact.address.region} ${contact.address.postalCode} and about ${contact.serviceRadiusMiles} miles around. We come to you — there is no showroom to visit.`}
+              es={`${contact.address.city}, ${contact.address.region} ${contact.address.postalCode} y unas ${contact.serviceRadiusMiles} millas a la redonda. Vamos a tu casa: no hay sala de exhibición que visitar.`}
+            />
+            <br />
             <a href={social.googleMaps} target="_blank" rel="noopener noreferrer">
-              {contact.address.street}, {contact.address.city}, {contact.address.region}{' '}
-              {contact.address.postalCode}
+              <T en="See our Google listing" es="Ver nuestra ficha de Google" />
             </a>
           </dd>
         </div>
@@ -71,7 +78,7 @@ import { contact, hours, primaryArea, nearbyAreas, social, mapSrc } from '../dat
     <div class="area__map reveal">
       <iframe
         src={mapSrc}
-        title="Residential Construction Enterprise, LLC on Google Maps"
+        title="Beaverton, Oregon — the service area of Residential Construction Enterprise, LLC"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         allowfullscreen></iframe>

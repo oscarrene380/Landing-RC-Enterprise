@@ -65,9 +65,12 @@ const business = {
     url: social.ccbSearch,
   },
   foundingDate: String(site.foundedYear),
+  /* Sin `streetAddress` a propósito: es un service-area business sin local
+     abierto al público, así que la dirección declarada llega hasta la ciudad y
+     el código postal. Debe coincidir con lo que muestra la web y con lo que
+     tiene el perfil de Google, que es la señal NAP que Google compara. */
   address: {
     '@type': 'PostalAddress',
-    streetAddress: contact.address.street,
     addressLocality: contact.address.city,
     addressRegion: contact.address.region,
     postalCode: contact.address.postalCode,
@@ -90,7 +93,9 @@ const business = {
         latitude: contact.geo.lat,
         longitude: contact.geo.lng,
       },
-      geoRadius: '40000',
+      /* En metros. Se deriva de las millas declaradas en la web para que el
+         dato estructurado no se despegue del texto visible. */
+      geoRadius: String(Math.round(contact.serviceRadiusMiles * 1609.34)),
     },
     ...serviceAreas.map((city) => ({
       '@type': 'City',
