@@ -18,16 +18,16 @@ const lang = langFromPath(Astro.url.pathname);
       </p>
 
       <h1 class="hero__title">
-        <T en="A flawless coat," es="Un acabado impecable," block />
+        <T en="House painting in the Portland metro," es="Pintura de casas en el área de Portland," block />
         <span class="hero__title-accent">
-          <T en="backed by 27 years." es="con 27 años de oficio." />
+          <T en="done right since 1998." es="bien hecha desde 1998." />
         </span>
       </h1>
 
       <p class="hero__lede lede">
         <T
-          en="Interior and exterior painting for homes across the Portland metro. Honest work, clean job sites, and free estimates — from a crew that has been doing this since 1998."
-          es="Pintura interior y exterior para hogares en el área de Portland. Trabajo honesto, obra limpia y estimados gratis — de un equipo que lleva en esto desde 1998."
+          en="Interior, exterior, staining and power washing. Clean job sites, honest quotes, and a crew that has been doing this for 27 years."
+          es="Interior, exterior, teñido y lavado a presión. Obra limpia, estimados honestos y un equipo que lleva 27 años haciendo esto."
         />
       </p>
 
@@ -48,10 +48,7 @@ const lang = langFromPath(Astro.url.pathname);
         </span>
         <span>
           <strong>{ratingSummary.value.toFixed(1)}</strong>
-          <T
-            en={` · ${ratingSummary.count} verified reviews · `}
-            es={` · ${ratingSummary.count} reseñas verificadas · `}
-          />
+          <span aria-hidden="true"> · </span>
           <a
             href={social.ccbSearch}
             class="hero__ccb"
