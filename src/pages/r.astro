@@ -1,0 +1,55 @@
+---
+/**
+ * Atajo para el QR de la tarjeta de presentación: rcenterprisepainting.com/r
+ *
+ * El enlace real de Google para escribir una reseña es larguísimo (lleva el
+ * place_id dentro) y como QR sale demasiado denso para imprimirlo a 1,6 cm en
+ * una tarjeta. Esta página existe solo para acortarlo: el QR apunta aquí y aquí
+ * se redirige al cuadro de reseña.
+ *
+ * El sitio es estático (GitHub Pages), así que no hay redirección 301 de
+ * servidor: se hace con <meta http-equiv="refresh"> más un salto en JS para que
+ * sea instantáneo, y con un enlace visible por si ambos fallan. `noindex` para
+ * que Google no la trate como contenido.
+ */
+import { social } from '../data/site';
+
+const target = social.googleReview;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Leave us a review — RC Enterprise</title>
+    <link rel="canonical" href={target} />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        background: #0e1a24;
+        color: #eef1f3;
+        font: 16px/1.6 ui-sans-serif, system-ui, sans-serif;
+        text-align: center;
+        padding: 2rem;
+      }
+      a {
+        color: #f2705f;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Taking you to Google to leave a review…<br />
+      <a href={target}>Continue / Continuar</a>
+    </p>
+    <script is:inline define:vars={{ target }}>
+      window.location.replace(target);
+    </script>
+  </body>
+</html>

@@ -16,7 +16,11 @@ export default defineConfig({
   // Sin la opción `i18n` del sitemap a propósito: empareja versiones por ruta
   // idéntica y nuestros slugs en español están traducidos, así que generaría
   // pares equivocados. El hreflang autoritativo va en el <head> de cada página.
-  integrations: [sitemap({ filter: (page) => page.endsWith('/') })],
+  // `/r/` es el atajo del QR de la tarjeta hacia el formulario de reseña de
+  // Google: es una redirección con `noindex`, no contenido, así que fuera.
+  integrations: [
+    sitemap({ filter: (page) => page.endsWith('/') && !page.endsWith('/r/') }),
+  ],
 
   compressHTML: true,
 
