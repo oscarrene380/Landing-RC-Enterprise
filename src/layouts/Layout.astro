@@ -17,7 +17,7 @@ import T from '../components/T.astro';
 import { site, contact, social, serviceAreas } from '../data/site';
 import { services } from '../data/services';
 import { asset } from '../lib/url';
-import { href, langFromPath, locales, ogLocale, type Alternates } from '../lib/i18n';
+import { href, langFromPath, locales, ogLocale, routes, type Alternates } from '../lib/i18n';
 
 interface Props {
   title: string;
@@ -44,6 +44,9 @@ const abs = (path: string) => new URL(href(path), origin).href;
 const canonical = abs(alternates[lang]);
 const homeUrl = new URL(asset('/'), origin).href;
 const ogImageUrl = new URL(asset(ogImage), origin).href;
+/** Logo cuadrado y rasterizado: es el formato que Google pide para asociar
+ *  una marca a su icono en resultados y en el panel de conocimiento. */
+const logoUrl = new URL(asset('icon-512.png'), origin).href;
 
 /** Datos estructurados del negocio: se repiten en todas las páginas a
  *  propósito, para que cualquier página pueda entrar como resultado local. */
@@ -56,6 +59,15 @@ const business = {
   telephone: contact.phoneRaw,
   email: contact.email,
   image: ogImageUrl,
+  logo: {
+    '@type': 'ImageObject',
+    '@id': `${homeUrl}#logo`,
+    url: logoUrl,
+    contentUrl: logoUrl,
+    width: 512,
+    height: 512,
+    caption: site.name,
+  },
   priceRange: '$$',
   // Licencia estatal como dato estructurado: refuerza la confianza en buscadores
   identifier: {
@@ -134,9 +146,24 @@ const business = {
   },
 };
 
+/** Nodo `WebSite` en la home. Es de donde Google saca el "nombre del sitio"
+ *  que muestra encima del título del resultado: sin él cae en el dominio a
+ *  secas ("rcenterprisepainting.com"). Solo lo lee de la portada, así que se
+ *  emite únicamente ahí. */
+const isHome = alternates[lang] === routes.home[lang];
+const website = {
+  '@type': 'WebSite',
+  '@id': `${homeUrl}#website`,
+  url: homeUrl,
+  name: site.shortName,
+  alternateName: [site.name, 'RC Enterprise Painting'],
+  inLanguage: lang,
+  publisher: { '@id': `${homeUrl}#business` },
+};
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@graph': [business, ...schema],
+  '@graph': [business, ...(isHome ? [website] : []), ...schema],
 };
 
 /** El otro idioma, solo para `og:locale:alternate`. */
@@ -180,8 +207,16 @@ const otherLang = lang === 'en' ? 'es' : 'en';
     <meta name="twitter:image" content={ogImageUrl} />
 
     <meta name="theme-color" content="#0e1a24" />
-    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
-    <link rel="apple-touch-icon" href={asset('favicon.svg')} />
+
+    {/* Iconos. Google necesita un favicon rasterizado alcanzable para mostrar
+        el logo junto al resultado: el .ico en la raíz es el que rastrea por
+        defecto y el PNG de 48px es el tamaño que documenta como referencia.
+        El SVG queda como versión nítida para navegadores modernos. */}
+    <link rel="icon" href={asset('favicon.ico')} sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} sizes="any" />
+    <link rel="icon" type="image/png" href={asset('icon-96.png')} sizes="96x96" />
+    <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
+    <link rel="manifest" href={asset('site.webmanifest')} />
 
     <link rel="preload" as="font" type="font/woff2" href={bricolageLatin} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={instrumentLatin} crossorigin />
