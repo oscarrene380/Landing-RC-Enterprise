@@ -17,7 +17,8 @@ export default defineConfig({
   // idéntica y nuestros slugs en español están traducidos, así que generaría
   // pares equivocados. El hreflang autoritativo va en el <head> de cada página.
   // `/r/` es el atajo del QR de la tarjeta hacia el formulario de reseña de
-  // Google: es una redirección con `noindex`, no contenido, así que fuera.
+  // Google. El salto lo hace un 301 en Cloudflare (ver docs/redirect-r.md) y la
+  // página es solo la red de seguridad: `noindex`, no contenido, así que fuera.
   integrations: [
     sitemap({ filter: (page) => page.endsWith('/') && !page.endsWith('/r/') }),
   ],

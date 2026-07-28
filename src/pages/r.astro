@@ -2,17 +2,24 @@
 /**
  * Atajo para el QR de la tarjeta de presentación: rcenterprisepainting.com/r
  *
- * El enlace real de Google para escribir una reseña es larguísimo (lleva el
- * place_id dentro) y como QR sale demasiado denso para imprimirlo a 1,6 cm en
- * una tarjeta. Esta página existe solo para acortarlo: el QR apunta aquí y aquí
- * se redirige al cuadro de reseña.
+ * El enlace real de Google para escribir una reseña lleva el place_id dentro y
+ * como QR sale demasiado denso para imprimirlo a 1,6 cm. Esta ruta lo acorta.
  *
- * El sitio es estático (GitHub Pages), así que no hay redirección 301 de
- * servidor: se hace con <meta http-equiv="refresh"> más un salto en JS para que
- * sea instantáneo, y con un enlace visible por si ambos fallan. `noindex` para
- * que Google no la trate como contenido.
+ * IMPORTANTE — no volver a poner redirección automática aquí.
+ * La versión anterior saltaba sola a Google con <meta http-equiv="refresh"> y
+ * `location.replace()`. Ese es exactamente el patrón que Google Safe Browsing
+ * clasifica como "sneaky redirect" (una página del dominio que empuja al
+ * visitante a otro dominio sin que él lo pida), y por eso Search Console marcó
+ * el sitio con "contenido dañino". El salto ahora lo hace un 301 de servidor
+ * en Cloudflare, por delante de GitHub Pages, y esta página queda solo como red
+ * de seguridad: si alguien llega hasta aquí ve una página de marca y pulsa él
+ * mismo el botón. Un clic humano nunca es un redirect furtivo.
+ *
+ * `noindex` porque es un atajo, no contenido que deba rankear. Tampoco lleva
+ * `canonical` a Google: apuntar el canonical a otro dominio era otra señal de
+ * que esta URL "no es nuestra".
  */
-import { social } from '../data/site';
+import { site, social } from '../data/site';
 
 const target = social.googleReview;
 ---
@@ -23,33 +30,102 @@ const target = social.googleReview;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
-    <meta http-equiv="refresh" content={`0; url=${target}`} />
-    <title>Leave us a review — RC Enterprise</title>
-    <link rel="canonical" href={target} />
+    <title>Leave us a review — {site.shortName}</title>
+    <meta
+      name="description"
+      content={`Share your experience with ${site.name} on Google.`}
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <style>
+      :root {
+        --ink-800: #0e1a24;
+        --coral-400: #f2705f;
+        --coral-500: #e14434;
+        --text: #eef1f3;
+        --muted: #9fb0bc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
         min-height: 100dvh;
         display: grid;
         place-items: center;
-        background: #0e1a24;
-        color: #eef1f3;
-        font: 16px/1.6 ui-sans-serif, system-ui, sans-serif;
+        padding: 2rem 1.25rem;
+        background: var(--ink-800);
+        color: var(--text);
+        font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, sans-serif;
         text-align: center;
-        padding: 2rem;
       }
-      a {
-        color: #f2705f;
+
+      main {
+        max-width: 26rem;
+      }
+
+      .brand {
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 1.75rem;
+      }
+
+      .stars {
+        font-size: 1.6rem;
+        letter-spacing: 0.12em;
+        color: var(--coral-400);
+        margin-bottom: 0.75rem;
+      }
+
+      h1 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        line-height: 1.2;
+        margin: 0 0 0.75rem;
+      }
+
+      p.lead {
+        color: var(--muted);
+        margin: 0 0 2rem;
+      }
+
+      .cta {
+        display: inline-block;
+        padding: 0.95rem 1.75rem;
+        border-radius: 999px;
+        background: var(--coral-500);
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 200ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .cta:hover,
+      .cta:focus-visible {
+        background: var(--coral-400);
+      }
+
+      .back {
+        display: block;
+        margin-top: 1.75rem;
+        font-size: 0.9rem;
+        color: var(--muted);
       }
     </style>
   </head>
   <body>
-    <p>
-      Taking you to Google to leave a review…<br />
-      <a href={target}>Continue / Continuar</a>
-    </p>
-    <script is:inline define:vars={{ target }}>
-      window.location.replace(target);
-    </script>
+    <main>
+      <p class="brand">{site.shortName}</p>
+      <div class="stars" aria-hidden="true">★★★★★</div>
+      <h1>Thanks for working with us</h1>
+      <p class="lead">
+        Your review helps other neighbors find us.<br />
+        Tu reseña ayuda a que otros vecinos nos encuentren.
+      </p>
+      <a class="cta" href={target} rel="noopener">Write a review on Google</a>
+      <a class="back" href="/">← rcenterprisepainting.com</a>
+    </main>
   </body>
 </html>
